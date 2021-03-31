@@ -1,0 +1,1 @@
+D:\factura-electronica\crs>D:\OpenSSL-Win64\bin\openssl.exe req -new -key privada -subj "/C=AR/O=MARIO DEL RIEGO/CN=MARIO DEL RIEGO/serialNumber=CUIT 20276708598" -out pedido

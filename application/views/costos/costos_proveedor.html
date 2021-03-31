@@ -1,0 +1,188 @@
+<!--
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="angular.min.js"></script>
+</head>
+
+<body>
+
+-->
+
+<!-- BEGIN PAGE -->  
+<div id="main-content" ng-app="fenixApp" ng-controller="CostoController">
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+        <!-- BEGIN PAGE HEADER-->   
+        <div class="row-fluid">
+            <div class="span12">
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    <button class="btn btn-danger" onclick="window.history.back()"><i class="icon-arrow-left"></i></button>
+                    *Costos Proveedor
+                </h3>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+        </div>
+
+        <!--<div ng-app="fenixApp" ng-controller="CostoController">-->
+
+        <label for="proveedor">Proveedor</label>
+        <select name="proveedor" class="chosen-select chzn-done" id="proveedor" ng-model="proveedor">
+             <option value="001" selected>Prov 01</option>
+             <option value="002">Prov 02</option>
+             <option value="003">Prov 03</option>
+        </select>
+
+     <hr/>
+
+     <div class="span10">
+        <div class="widget green">
+            <div class="widget-title">
+                <h4><i class="icon-reorder"></i> Cargar Costo </h4>
+                <span class="tools">
+                    <a href="javascript:;" class="icon-chevron-down"></a>                                
+                </span>
+            </div>
+            <div class="widget-body">
+
+                <div class="row-fluid">
+                    <div class="span2">
+                        <div class="control-group">
+                            <!--<label class="control-label">Articulo</label>-->
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Articulo Fenix" name="articulo" value="" ng-blur="consultarArt()" ng-model="articulo"> {{descripcion}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="span2">
+                        <div class="control-group">
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Interno" name="oem" value="" ng-model="interno">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span10">
+                        <div class="control-group">
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Fecha" name="fecha" value="" ng-model="fecha">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">
+                        <div class="control-group">
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Costo" name="costo" ng-model="costo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">
+                        <div class="control-group">
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Dto1" name="dto1" ng-model="dto1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">
+                        <div class="control-group">
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Recargo 1" name="rec1" ng-model="rec1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">
+                        <div class="control-group">
+                            <div class="controls controls-row">
+                                <input type="text" class="input-block-level" placeholder="Stock" name="stock"> 
+                                <button type="submit" id="btn-modificar" class="btn btn-primay" ng-click="addCosto()">Cargar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <br/>
+    <div>Total : {{total()}} </div>
+    <table border="1">
+        <thead>
+           <th>Articulo</th>
+           <th>Interno</th>
+           <th>Fecha</th>
+           <th>Costo</th>
+       </thead>    
+       <tbody>
+        <tr ng-repeat="costo in costos">
+            <td>{{costo.articulo}}</td>
+            <td>{{costo.interno}}</td>
+            <td>{{costo.fecha}}</td>
+            <td>{{costo.costo}}</td>
+        </tr>   
+    </tbody>    
+</table>
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+<script type="text/javascript">
+
+angular.module('fenixApp', [])
+.controller('CostoController', ['$scope', function($scope) {
+    $scope.costos = [
+    //{articulo:'Art', interno:'Interno' }                  
+    ];
+
+    $scope.addCosto = function() {
+      $scope.costos.push(
+        {
+            articulo:$scope.articulo,
+            interno:$scope.interno,
+            fecha:$scope.fecha,
+            costo:$scope.costo
+        }
+      );
+      
+      $scope.articulo = "";
+      $scope.interno = "";
+      $scope.fecha = "";
+      $scope.costo = "";
+
+  };
+
+  $scope.total = function() {
+      var count = 0;
+      angular.forEach($scope.costos, function() {
+        count++;
+    });
+    return count;
+  };
+
+  $scope.consultarArt = function() {
+    $scope.descripcion = $scope.proveedor + " Descripcion";
+}
+
+}]);
+
+</script>
+
+</div>
+</div>
+
+<!--
+</body>
+</html>
+-->
