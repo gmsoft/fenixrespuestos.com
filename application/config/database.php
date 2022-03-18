@@ -48,10 +48,10 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'localhost:3306';
-$db['default']['username'] = 'u520815013_fenix_user';
-$db['default']['password'] = 'Password0';
-$db['default']['database'] = 'u520815013_fenix_base';
+$db['default']['hostname'] = 'db-mysql-nyc3-22736-do-user-11066346-0.b.db.ondigitalocean.com:25060';
+$db['default']['username'] = 'doadmin';
+$db['default']['password'] = 'AmMG2DvQVU4GgWgk';
+$db['default']['database'] = 'defaultdb';
 /*
 $dr = $_SERVER['CONTEXT_DOCUMENT_ROOT'];
 if ($dr == 'D:/Dropbox/proyectos/webs') {
