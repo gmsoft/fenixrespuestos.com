@@ -60,10 +60,10 @@ if ($dr == 'D:/Dropbox/proyectos/webs') {
 	$db['default']['dbdriver'] = 'mysql';
 }
 */
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'mysqli';
 
 $db['default']['dbprefix'] = '';
-$db['default']['pconnect'] = FALSE;
+$db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
