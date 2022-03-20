@@ -12,7 +12,7 @@ class articulo_model extends CI_Model {
     function get_articulo_by_id($id)
     {
         $this->db->select('*');
-        $this->db->where('id = "'.$id.'"');
+        $this->db->where("id = '" . $id . "'");
         $query=$this->db->get('articulos');
         return $query->row_array();
     }
@@ -78,7 +78,7 @@ class articulo_model extends CI_Model {
     {
         $descripcion = str_replace('*', '%', $descripcion);
         $this->db->select('*');
-        $this->db->where('descripcion LIKE "%' . $descripcion . '%"');
+        $this->db->where("descripcion LIKE '%" . $descripcion . "%'");
         if ($descripcion == '')
             $query = $this->db->get('articulos',100);
         else
