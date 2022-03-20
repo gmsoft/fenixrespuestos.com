@@ -11,8 +11,8 @@ class Um_users_model extends CI_Model {
     function get_user_details($username)
     {
         $this->db->select('*');
-        $this->db->where('username = "'.$username.'"');
-        $query=$this->db->get('users');
+        $this->db->where("username = '" . $username . "'");
+        $query = $this->db->get('users');
         return $query->row_array();
     }
 
@@ -174,12 +174,12 @@ class Um_users_model extends CI_Model {
     public function is_user_exist($username)
     {
         $this->db->select('*');
-        $this->db->where('username = "'.$username.'"');
+        $this->db->where("username = '" . $username . "'");
         $query=$this->db->get('users');
-        if($query -> num_rows()> 0){
-            return true;
+        if ($query -> num_rows()> 0) {
+          return true;
         } else {
-         return false;
+          return false;
         }
     }
 
