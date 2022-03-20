@@ -19,7 +19,7 @@ class menu_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->order_by('orden');
-        $this->db->where('modulo_id = "' . $modulo_id . '" AND activo = 1');
+        $this->db->where("modulo_id = '" . $modulo_id . "' AND activo = 1");
         $query=$this->db->get('menues');
         return $query->result_array();
     }
