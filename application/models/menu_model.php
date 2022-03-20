@@ -33,7 +33,7 @@ class menu_model extends CI_Model {
     
     function tienePermiso($user_id, $menu_id) {
         $this->db->select('*');
-        $this->db->where("user_id = '" . $user_id . "' AND menu_id = '" . $menu_id);
+        $this->db->where("user_id = '" . $user_id . "' AND menu_id = '" . $menu_id . "'");
         $query = $this->db->get('permisos');
         if(count($query->result_array()) > 0) {
             return true;
