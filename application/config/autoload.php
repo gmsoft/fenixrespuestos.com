@@ -56,7 +56,8 @@ $autoload['libraries'] = array(
     'database',
     'form_validation', 
     'user_manager', 
-    'session'
+    'session',
+    'globals',
 );
 
 
