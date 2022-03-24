@@ -233,7 +233,7 @@ class lista_precio_controller extends CI_Controller {
          $precio = $this->input->post('precio');
          
          $sql_update = "UPDATE articulos SET precio_lista = '$precio' WHERE id = '$art'";
-         $res_update = mysql_query($sql_update);
+         $res_update = mysql_query($link, $sql_update);
          echo $res_update;
     }
     
@@ -243,7 +243,7 @@ class lista_precio_controller extends CI_Controller {
          $cantidad = $this->input->post('cantidad');
          
          $sql_update = "UPDATE stock SET cantidad = '$cantidad' WHERE articulo_fenix = '$art' and sucursal_id = 1";
-         $res_update = mysql_query($sql_update);
+         $res_update = mysql_query($link, $sql_update);
          echo $res_update;
     }
     

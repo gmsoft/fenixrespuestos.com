@@ -72,13 +72,13 @@
                                         <?php
                                         //Fecha de la lista
                                         $sql = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'lista_ford'";
-                                        $res = mysql_query($sql);
+                                        $res = mysql_query($link, $sql);
                                         $row = mysql_fetch_array($res);
                                         $fecha_actualizacion = $row['fecha_actualizacion'];
 
                                         //Fecha Actualizacion Ofertas
                                         $sql = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'ofertas_ford'";
-                                        $res = mysql_query($sql);
+                                        $res = mysql_query($link, $sql);
                                         $row = mysql_fetch_array($res);
                                         $fecha_actualizacion_ofertas = $row['fecha_actualizacion'];
 
@@ -111,7 +111,7 @@
                                             
                                             $sql_cod_prov = "SELECT id FROM proveedores "
                                                     . " WHERE codigo_proveedor = '005' ";
-                                            $res_cod_prov = mysql_query($sql_cod_prov);
+                                            $res_cod_prov = mysql_query($link, $sql_cod_prov);
                                             $row_cod_prov = mysql_fetch_array($res_cod_prov);
                                             $proveedor_id = $row_cod_prov['id'];
                                             
@@ -119,7 +119,7 @@
                                             //consulta la tabla de dtos del proveedor 5 (001 => FENIX)
                                             $sql_dto = "SELECT porcentaje_dto FROM proveedor_dto_vw "
                                                     . "WHERE proveedor_id = $proveedor_id AND codigo = '$codigo_dto'";
-                                            $res_dto = mysql_query($sql_dto);
+                                            $res_dto = mysql_query($link, $sql_dto);
                                             $row_dto = mysql_fetch_array($res_dto);
                                             $porc_dto = $row_dto['porcentaje_dto'];
                                            
@@ -159,13 +159,13 @@
                                             $original_oferta = trim(str_replace(' ', '',$original));
                                             $sql_oferta = "SELECT interno, descripcion, precio FROM ofertas_ford WHERE interno = '$original_oferta' or interno='$original'";
                                             //echo $sql_oferta.'<br>';
-                                            @$res_oferta = mysql_query($sql_oferta);
+                                            @$res_oferta = mysql_query($link, $sql_oferta);
                                             @$nrows_oferta = mysql_num_rows($res_oferta);
                                             @$row_oferta = mysql_fetch_array($res_oferta);
                                             if ($nrows_oferta > 0) {
                                                 //Fecha de la lista
                                                 $sql_fechalista = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'ofertas_ford'";
-                                                $res_fechalista = mysql_query($sql_fechalista);
+                                                $res_fechalista = mysql_query($link, $sql_fechalista);
                                                 $row_fechalista = mysql_fetch_array($res_fechalista);
                                                 $fecha_actualizacion_oferta = $row_fechalista['fecha_actualizacion'];
 

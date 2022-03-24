@@ -22,7 +22,7 @@
             <?php
             $query_prov = "SELECT id, codigo_proveedor, nombre_proveedor
                     FROM proveedores ORDER BY nombre_proveedor";
-            $result_prov = mysql_query($query_prov);
+            $result_prov = mysql_query($link, $query_prov);
             ?>
             <div class="span12">
                 <!-- BEGIN EXAMPLE TABLE widget-->

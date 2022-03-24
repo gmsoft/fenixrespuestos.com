@@ -29,24 +29,24 @@ $this->load->view('administrador/dashboard/header');
             <?php
             //CLIENTES
             $query_clientes = "SELECT id, razon_social FROM clientes";
-            $result_clientes = mysql_query($query_clientes);
+            $result_clientes = mysql_query($link, $query_clientes);
             
             //SUCURSALES
             $query_sucursal_h = "SELECT id, nombre
                     FROM sucursales";
-            $result_sucursal_h = mysql_query($query_sucursal_h);
+            $result_sucursal_h = mysql_query($link, $query_sucursal_h);
             
             //COMPANIAS
             $query_compania = "SELECT id, nombre FROM companias";
-            $result_compania = mysql_query($query_compania);
+            $result_compania = mysql_query($link, $query_compania);
             
             //PERITOS
             $query_peritos = "SELECT id, nombre FROM peritos";
-            $result_peritos = mysql_query($query_peritos);
+            $result_peritos = mysql_query($link, $query_peritos);
             
             //MODELOS
             $query_modelos = "SELECT id, marca_id, nombre FROM modelos";
-            $result_modelos = mysql_query($query_modelos);
+            $result_modelos = mysql_query($link, $query_modelos);
             ?>
             <div class="span12" style="margin-left: 0px;">
                 <!-- BEGIN EXAMPLE TABLE widget-->

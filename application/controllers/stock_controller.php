@@ -96,7 +96,7 @@ class stock_controller extends CI_Controller {
        
        $sql_insert = "INSERT INTO transferencias_stock (codigo_fenix, cantidad, sucursal_desde, sucursal_hasta, fecha)"
                . " VALUES ('$codigo_fenix', '$cantidad', '$desdeSucursal', '$hastaSucursal','$fecha')";
-       $res_insert = mysql_query($sql_insert);
+       $res_insert = mysql_query($link, $sql_insert);
        if (!$res_insert) {
            echo 'Error al crear transferencia';
        } else {

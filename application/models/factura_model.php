@@ -85,7 +85,7 @@ class factura_model extends CI_Model {
                 . "FROM presupuestos "
                 . "WHERE presupuesto_nro = $presupuesto_nro "
                 . "AND cliente_id = $cliente";
-        $res = mysql_query($sql);
+        $res = mysql_query($link, $sql);
         $importe_total = 0;
         $items = 0;
         $totales = array();

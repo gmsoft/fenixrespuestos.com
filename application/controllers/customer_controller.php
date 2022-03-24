@@ -101,7 +101,7 @@ class customer_controller extends CI_Controller {
         $valor_id = $_POST['valor_id'];
 
         $sql = "SELECT nombre, telefono, email, direccion FROM contactos WHERE id IN ( SELECT contacto_id FROM $entidad WHERE $campo = '$valor_id')";
-        $res = mysql_query($sql);
+        $res = mysql_query($link, $sql);
         $tabla = '<table class="table table-striped table-bordered">
         <thead><tr><th>Nombre</th><th>Telefono</th><th>Email</th><th>Direccion</th></tr></thead><tbody>';
         while ($row = mysql_fetch_array($res)) {
@@ -132,11 +132,11 @@ class customer_controller extends CI_Controller {
         $err = 1;
 
         $sql_contactos = "INSERT INTO contactos (nombre, telefono, email, direccion) VALUES ('$nombre','$telefono','$email','$direccion')";
-        $res_contactos = mysql_query($sql_contactos);
+        $res_contactos = mysql_query($link, $sql_contactos);
         if ($res_contactos) {
             $sql_contacto = "SELECT id FROM contactos WHERE nombre='$nombre' AND telefono= '$telefono'";// AND email = '$email'";
             //die($sql_contacto);
-            $res_contacto = mysql_query($sql_contacto);
+            $res_contacto = mysql_query($link, $sql_contacto);
             $contacto_id = 0;
             while($row = mysql_fetch_array($res_contacto)) {
                 $contacto_id = $row['id'];
@@ -146,7 +146,7 @@ class customer_controller extends CI_Controller {
             
             $sql_entidad = "INSERT INTO $entidad ($campo, contacto_id) VALUES ($valor_id, '$contacto_id')";
             //die($sql_entidad );
-            $res_entidad = mysql_query($sql_entidad);
+            $res_entidad = mysql_query($link, $sql_entidad);
             if ($res_entidad) {
                 $err = 0;
             }

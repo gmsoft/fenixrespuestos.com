@@ -18,7 +18,7 @@ $sql_prov = "SELECT codigo_proveedor, nombre_proveedor, l.`columnas`, l.`columna
 FROM proveedores p
 INNER JOIN listas l ON L.`proveedor_id` = p.`id`
 WHERE p.id = $proveedor_id";
-$res_prov = mysql_query($sql_prov);
+$res_prov = mysql_query($link, $sql_prov);
 
 $contador_proveedor = 0;
 $nombre_proveedor = "";
@@ -77,7 +77,7 @@ $sql_cod_dto = "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT
   WHERE table_name = '$nombre_tabla'
   AND COLUMN_NAME = 'cod_dto'
   LIMIT 1";
-$res_cod_dto = mysql_query($sql_cod_dto);
+$res_cod_dto = mysql_query($link, $sql_cod_dto);
 $contador_cod_dto = 0;
 while($row_cod_dto = mysql_fetch_array($res_cod_dto)) {
 	$contador_cod_dto++;
@@ -93,7 +93,7 @@ $sql = "SELECT $columna_precio, $columna_cod_interno, descripcion $columna_cod_d
 
 //$sql = "SELECT $columna_precio, $columna_cod_interno, descripcion $columna_cod_dto FROM $nombre_tabla LIMIT 10";
 //$sql = "SELECT $columna_precio, $columna_cod_interno, descripcion  $columna_cod_dto FROM $nombre_tabla WHERE original = '000-001-199'";
-$res = mysql_query($sql);
+$res = mysql_query($link, $sql);
 if (!$res) {
 	$file_content.="ERROR: No se pudo leer tabla $nombre_tabla : $sql\r\n";
 	fwrite($file_nuevos, $file_content);
@@ -118,7 +118,7 @@ while($row = mysql_fetch_array($res)) {
 	FROM costos_proveedor 
 	WHERE proveedor_id = $proveedor_id 
 	AND interno_proveedor = '$original' LIMIT 1";
-	$res_costo = mysql_query($sql_costo);
+	$res_costo = mysql_query($link, $sql_costo);
 	$contador_costo = 0;
 	while ($row_costo = mysql_fetch_array($res_costo)) {
 		
@@ -146,7 +146,7 @@ while($row = mysql_fetch_array($res)) {
 		if ($contador_cod_dto > 0) {
 			$sql_dto = "SELECT porcentaje_dto FROM proveedor_dto_vw WHERE proveedor_id = $proveedor_id AND codigo = '$cod_dto'";
 			
-			$res_dto = mysql_query($sql_dto);
+			$res_dto = mysql_query($link, $sql_dto);
 			while ($row_dto = mysql_fetch_array($res_dto)) {
 				$porcentaje_dto = $row_dto['porcentaje_dto'];
 				
@@ -210,7 +210,7 @@ while($row = mysql_fetch_array($res)) {
 			cod_dto = '$cod_dto' 
 			WHERE proveedor_id = $proveedor_id AND interno_proveedor = '$original'";
 			
-			$res_update = mysql_query($sql_update);
+			$res_update = mysql_query($link, $sql_update);
 			if ($res_update) {
 				
 				echo "Costo del Código $original actualizado\r\n";
@@ -263,7 +263,7 @@ while($row = mysql_fetch_array($res)) {
                 	$sql_precio_lista = "UPDATE articulos 
                 	SET precio_lista = '$precio_lista', utilidad = '$utilidad' 
                 	WHERE codigo_fenix = '$codigo_fenix'";
-                	$res_precio_lista = mysql_query($sql_precio_lista);
+                	$res_precio_lista = mysql_query($link, $sql_precio_lista);
                 	if ($res_precio_lista) {
                 		echo "Precio del articulo " . rtrim($codigo_fenix) . " actualizado\r\n";
                 		$file_content.="Precio del articulo " . rtrim($codigo_fenix) . " actualizado\r\n";
@@ -299,7 +299,7 @@ while($row = mysql_fetch_array($res)) {
 			cod_dto = '$cod_dto' 
 			WHERE proveedor_id = $proveedor_id AND interno_proveedor = '$original'";
 			//echo $sql_update;
-			$res_update = mysql_query($sql_update);
+			$res_update = mysql_query($link, $sql_update);
 			if (!$res_update) {
 				$file_content.="ERROR: Error al actualizar fecha de costo del original $original : $sql_update";
 				fwrite($file_nuevos, $file_content);
