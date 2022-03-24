@@ -20,7 +20,7 @@
                                                 <select id="proveedor" name="proveedor" class="chzn-select-deselect" data-placeholder="Seleccione proveedor">
                                                     <option value=""></option>
                                                     <?php
-                                                    while ($row_prov =  mysql_fetch_array($result_prov)) {
+                                                    while ($row_prov =  mysqli_fetch_array($result_prov)) {
                                                         echo '<option value="' . $row_prov['codigo_proveedor'] . '">' . $row_prov['nombre_proveedor'] .'</option>';
                                                     }
                                                     ?>
