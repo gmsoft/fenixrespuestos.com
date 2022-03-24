@@ -100,7 +100,7 @@
                                     WHERE ocompra = $ocompra";
                                     $res_ocompra = mysqli_query($link, $sql_ocompra);
                                     $cont = 0;
-                                    while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
+                                    while ($row_ocompra = mysqli_fetch_array($res_ocompra)) {
                                         $cont++;
                                         ?>
                                         <tr>

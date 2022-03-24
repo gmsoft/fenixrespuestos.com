@@ -104,7 +104,7 @@ class customer_controller extends CI_Controller {
         $res = mysqli_query($link, $sql);
         $tabla = '<table class="table table-striped table-bordered">
         <thead><tr><th>Nombre</th><th>Telefono</th><th>Email</th><th>Direccion</th></tr></thead><tbody>';
-        while ($row = mysql_fetch_array($res)) {
+        while ($row = mysqli_fetch_array($res)) {
             $tabla .= '<tr>'; 
             $tabla .= '<td>' . $row['nombre'] . '</td>';
             $tabla .= '<td>' . $row['telefono'] . '</td>';
@@ -138,7 +138,7 @@ class customer_controller extends CI_Controller {
             //die($sql_contacto);
             $res_contacto = mysqli_query($link, $sql_contacto);
             $contacto_id = 0;
-            while($row = mysql_fetch_array($res_contacto)) {
+            while($row = mysqli_fetch_array($res_contacto)) {
                 $contacto_id = $row['id'];
             }
 

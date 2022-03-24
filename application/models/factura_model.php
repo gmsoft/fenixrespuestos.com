@@ -89,7 +89,7 @@ class factura_model extends CI_Model {
         $importe_total = 0;
         $items = 0;
         $totales = array();
-        while($row = mysql_fetch_array($res)) {
+        while($row = mysqli_fetch_array($res)) {
            $importe_total = $row['importe_total'];
            $items = $row['items'];
         }

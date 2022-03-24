@@ -51,7 +51,7 @@
                                                   <select id="desde-sucursal">
                                                     
                                                     <?php
-                                                    while($row_suc = mysql_fetch_array($result_sucursal)){
+                                                    while($row_suc = mysqli_fetch_array($result_sucursal)){
                                                         echo '<option value="' . $row_suc['id'] . '">' . $row_suc['nombre'] .'</option>';
                                                     }
                                                     ?>
@@ -63,7 +63,7 @@
                                                   <select id="hasta-sucursal">
                                                     
                                                     <?php
-                                                    while($row_suc_h = mysql_fetch_array($result_sucursal_h)){
+                                                    while($row_suc_h = mysqli_fetch_array($result_sucursal_h)){
                                                         echo '<option value="' . $row_suc_h['id'] . '">' . $row_suc_h['nombre'] .'</option>';
                                                     }
                                                     ?>

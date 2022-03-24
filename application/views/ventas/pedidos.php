@@ -52,7 +52,7 @@
                                             <select id="proveedor">
 
                                                 <?php
-                                                while ($row_prov = mysql_fetch_array($result_prov)) {
+                                                while ($row_prov = mysqli_fetch_array($result_prov)) {
                                                     echo '<option value="' . $row_prov['proveedor_id'] . '">' . $row_prov['nombre_proveedor'] . ' [' . $row_prov['codigo_proveedor'] . ']</option>';
                                                 }
                                                 ?>
@@ -64,7 +64,7 @@
                                             <select id="sucursal">
 
                                                 <?php
-                                                while ($row_suc_h = mysql_fetch_array($result_sucursal_h)) {
+                                                while ($row_suc_h = mysqli_fetch_array($result_sucursal_h)) {
                                                     echo '<option value="' . $row_suc_h['id'] . '">' . $row_suc_h['nombre'] . '</option>';
                                                 }
                                                 ?>

@@ -64,7 +64,7 @@
                                                   <select id="proveedor" class="chzn-select-deselect span6" data-placeholder="Seleccione proveedor">
                                                     <option value=""></option>
                                                     <?php
-                                                    while($row_prov = mysql_fetch_array($result_prov)){
+                                                    while($row_prov = mysqli_fetch_array($result_prov)){
                                                         echo '<option value="' . $row_prov['id'] . '">' . $row_prov['nombre_proveedor'] . ' [' . $row_prov['codigo_proveedor'] . ']</option>';
                                                         
                                                     }

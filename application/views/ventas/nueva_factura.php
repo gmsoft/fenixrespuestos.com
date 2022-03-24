@@ -49,7 +49,7 @@
                                             <select id="cliente">
 
                                                 <?php
-                                                while ($row_clientes = mysql_fetch_array($result_clientes)) {
+                                                while ($row_clientes = mysqli_fetch_array($result_clientes)) {
                                                     echo '<option value="' . $row_clientes['id'] . '">' . $row_clientes['razon_social'] . '</option>';
                                                 }
                                                 ?>
@@ -80,7 +80,7 @@
                                             <select id="sucursal">
 
                                                 <?php
-                                                while ($row_suc_h = mysql_fetch_array($result_sucursal_h)) {
+                                                while ($row_suc_h = mysqli_fetch_array($result_sucursal_h)) {
                                                     echo '<option value="' . $row_suc_h['id'] . '">' . $row_suc_h['nombre'] . '</option>';
                                                 }
                                                 ?>

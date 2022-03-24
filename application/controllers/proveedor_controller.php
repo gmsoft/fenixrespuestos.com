@@ -163,7 +163,7 @@ class proveedor_controller extends CI_Controller {
         $nuevo_numero = '0';
         $sql = "SELECT (MAX((codigo_proveedor * 1)) + 1) AS codigo FROM proveedores ORDER BY codigo";
         $result = mysqli_query($link, $sql);
-        $row = mysql_fetch_array($result);
+        $row = mysqli_fetch_array($result);
         
         $nuevo_numero = $row['codigo'];
         $nuevo_numero = str_pad($nuevo_numero, 3, "0", STR_PAD_LEFT);

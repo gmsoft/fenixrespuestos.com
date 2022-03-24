@@ -72,7 +72,7 @@ $this->load->view('administrador/dashboard/header');
                                             <select id="sucursal" class="chzn-select-deselect" data-placeholder="Seleccione sucursal" style="width:100px">
                                                 <option value=""></option>
                                                 <?php
-                                                while ($row_suc_h = mysql_fetch_array($result_sucursal_h)) {
+                                                while ($row_suc_h = mysqli_fetch_array($result_sucursal_h)) {
                                                  ?>   
                                                     <option value="<?php echo $row_suc_h['id'];?>" <?php echo($row_suc_h['id'] == $sucursal)? 'selected' : '' ?> > <?php echo $row_suc_h['nombre'] ?></option>  
                                                 <?php
@@ -93,7 +93,7 @@ $this->load->view('administrador/dashboard/header');
                                             <select id="cliente" class="chzn-select-deselect span6" data-placeholder="Seleccione cliente" style="width:250px">
                                                 <option value=""></option>        
                                                 <?php
-                                                while ($row_clientes = mysql_fetch_array($result_clientes)) {                                                    
+                                                while ($row_clientes = mysqli_fetch_array($result_clientes)) {                                                    
                                                     echo '<option value="' . $row_clientes['id'] . '">' . $row_clientes['razon_social'] . '</option>';
                                                 }
                                                 ?>
@@ -121,7 +121,7 @@ $this->load->view('administrador/dashboard/header');
                                             <select id="compania" class="chzn-select-deselect span6" data-placeholder="Seleccione la compania">
                                                 <option value=""></option>        
                                                 <?php
-                                                while ($row_companias = mysql_fetch_array($result_compania)) {
+                                                while ($row_companias = mysqli_fetch_array($result_compania)) {
                                                     echo '<option value="' . $row_companias['id'] . '">' . $row_companias['nombre'] . '</option>';
                                                 }
                                                 ?>
@@ -133,7 +133,7 @@ $this->load->view('administrador/dashboard/header');
                                             <select id="perito" class="chzn-select-deselect span6" data-placeholder="Seleccione el perito">
                                                 <option value=""></option>        
                                                 <?php
-                                                while ($row_perito = mysql_fetch_array($result_peritos)) {
+                                                while ($row_perito = mysqli_fetch_array($result_peritos)) {
                                                     echo '<option value="' . $row_perito['id'] . '">' . $row_perito['nombre'] . '</option>';
                                                 }
                                                 ?>
@@ -149,7 +149,7 @@ $this->load->view('administrador/dashboard/header');
                                         <select id="vehiculo" class="chzn-select-deselect" data-placeholder="Seleccione vehiculo" style="width:150px">
                                             <option value=""></option>
                                             <?php
-                                            while ($row_modelos = mysql_fetch_array($result_modelos)) {
+                                            while ($row_modelos = mysqli_fetch_array($result_modelos)) {
                                                 echo '<option value="' . $row_modelos['id'] . '">' . $row_modelos['nombre'] . '</option>';
                                             }
                                             ?>

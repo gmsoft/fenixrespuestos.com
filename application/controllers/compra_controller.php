@@ -77,7 +77,7 @@ class compra_controller extends CI_Controller {
                 . "AND interno_proveedor = '$interno'";
         $res_costo = mysqli_query($link, $sql_costo);
         $contador_costo = 0;
-        while ($row_costo = mysql_fetch_array($res_costo)) {
+        while ($row_costo = mysqli_fetch_array($res_costo)) {
             $codigofenix = $row_costo['codigo_fenix'];
             $costo = $row_costo['costo'];
             $dto1 = $row_costo['dto1'];
@@ -106,7 +106,7 @@ class compra_controller extends CI_Controller {
         //Lee la lista del proveedor 
         $sql_lista = "SELECT nombre_tabla , columna_cod_interno FROM listas WHERE proveedor_id = $proveedor";
         $res_lista = mysqli_query($link, $sql_lista);
-        while ($row_lista = mysql_fetch_array($res_lista)) {
+        while ($row_lista = mysqli_fetch_array($res_lista)) {
             $nombre_tabla = $row_lista['nombre_tabla'];
             $columna_cod_interno = $row_lista['columna_cod_interno'];
 
@@ -116,7 +116,7 @@ class compra_controller extends CI_Controller {
                         . "FROM $nombre_tabla "
                         . "WHERE $columna_cod_interno = '$interno'";
                 $res_lista_prov = mysqli_query($link, $sql_lista_prov);
-                while ($row_lista_prov = mysql_fetch_array($res_lista_prov)) {
+                while ($row_lista_prov = mysqli_fetch_array($res_lista_prov)) {
                     $descripcion_lista = $row_lista_prov['descripcion'];
                     $precio_lista = $row_lista_prov['precio_lista'];
                     $marca_lista = $row_lista_prov['marca'];
@@ -155,7 +155,7 @@ class compra_controller extends CI_Controller {
         $items['descripcion'] = "";
         $items['err'] = "0";
         $descripcion = '';
-        while ($row_costo = mysql_fetch_array($res_costo)) {
+        while ($row_costo = mysqli_fetch_array($res_costo)) {
 
             $descripcion = $row_costo['descripcion'];
 
@@ -173,7 +173,7 @@ class compra_controller extends CI_Controller {
                 . "WHERE codigo_fenix = '$codfenix' AND proveedor_id = $proveedor";
         $res_interno_costo = mysqli_query($link, $sql_interno_costo);
 
-        while ($row_interno_costo = mysql_fetch_array($res_interno_costo)) {
+        while ($row_interno_costo = mysqli_fetch_array($res_interno_costo)) {
 
             $codigo_fenix = $row_interno_costo['codigo_fenix'];
             $interno_proveedor = $row_interno_costo['interno_proveedor'];
@@ -204,7 +204,7 @@ class compra_controller extends CI_Controller {
             AND cantidadped <> cantidadrec
             AND sucursal = $sucursal";
         $res_ocompra = mysqli_query($link, $sql_ocompra);
-        while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
+        while ($row_ocompra = mysqli_fetch_array($res_ocompra)) {
             $items['ocompra'] = $row_ocompra['ocompra'];
             $items['fecha_ocompra'] = $row_ocompra['fecha'];
             $items['costo'] = $row_ocompra['costo'];
@@ -293,7 +293,7 @@ class compra_controller extends CI_Controller {
                         where proveedor_id = $proveedor 
                         and ocompra = 0";
             $res_totales = mysqli_query($link, $sql_totales);
-            $row_totales = mysql_fetch_array($res_totales);
+            $row_totales = mysqli_fetch_array($res_totales);
 
             $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
             $total_items = number_format($row_totales['items'], 0, '.', ',');
@@ -333,7 +333,7 @@ class compra_controller extends CI_Controller {
 
         $sql = "SELECT MAX(ocompra) + 1 AS nueva_orden FROM ocompras";
         $res = mysqli_query($link, $sql);
-        $row = mysql_fetch_array($res);
+        $row = mysqli_fetch_array($res);
         $nueva_orden = $row['nueva_orden'];
 
         if ($res) {
@@ -354,7 +354,7 @@ class compra_controller extends CI_Controller {
                             where proveedor_id = $proveedor 
                             and ocompra = $nueva_orden";
                 $res_totales = mysqli_query($link, $sql_totales);
-                $row_totales = mysql_fetch_array($res_totales);
+                $row_totales = mysqli_fetch_array($res_totales);
 
                 $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
                 $total_items = number_format($row_totales['items'], 0, '.', ',');
@@ -408,7 +408,7 @@ class compra_controller extends CI_Controller {
                 . " ocompras WHER codigo_fenix = '$art'"
                 . " AND ocompra = $ocompra";
         $res_ocompra = mysqli_query($link, $sql_ocompra);
-        while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
+        while ($row_ocompra = mysqli_fetch_array($res_ocompra)) {
             $cantrec_oc = $row_ocompra['cantidadrec'] * 1;
         }
 
@@ -435,7 +435,7 @@ class compra_controller extends CI_Controller {
                 $cantidad_stk = 0;
                 $cantidad_stk_nueva = 0;
                 $cont_stk = 0;
-                while ($row_stk = mysql_fetch_array($res_stk)) {
+                while ($row_stk = mysqli_fetch_array($res_stk)) {
                     $cantidad_stk = $row_stk['cantidad'];
                     $cont_stk++;
                 }
@@ -555,7 +555,7 @@ class compra_controller extends CI_Controller {
                         where proveedor_id = $proveedor 
                         and ocompra = 0";
             $res_totales = mysqli_query($link, $sql_totales);
-            $row_totales = mysql_fetch_array($res_totales);
+            $row_totales = mysqli_fetch_array($res_totales);
 
             $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
             $total_items = number_format($row_totales['items'], 0, '.', ',');
@@ -590,7 +590,7 @@ class compra_controller extends CI_Controller {
         //Datos del proveedor 
         $sql_prov = "SELECT codigo_proveedor, nombre_proveedor FROM PROVEEDORES WHERE ID = $proveedor";
         $res_prov = mysqli_query($link, $sql_prov);
-        $row_prov = mysql_fetch_array($res_prov);
+        $row_prov = mysqli_fetch_array($res_prov);
         $prov_nombre = $row_prov['nombre_proveedor'];
         $codigo_proveedor = $row_prov['codigo_proveedor'];
 
@@ -609,7 +609,7 @@ class compra_controller extends CI_Controller {
                     where proveedor_id = $proveedor 
                     and factura = '$factura'";
         $res_totales = mysqli_query($link, $sql_totales);
-        $row_totales = mysql_fetch_array($res_totales);
+        $row_totales = mysqli_fetch_array($res_totales);
 
         $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
         $total_items = number_format($row_totales['items'], 0, '.', ',');
@@ -617,7 +617,7 @@ class compra_controller extends CI_Controller {
         //Baja los articulos de la orden de compra
         $sql_arts = "SELECT codigo_fenix, cantidad FROM facturas_compras WHERE factura = '$factura'";
         $res_arts = mysqli_query($link, $sql_arts);
-        while ($row_arts = mysql_fetch_array($res_arts)) {
+        while ($row_arts = mysqli_fetch_array($res_arts)) {
 
             $art_oc = $row_arts['codigo_fenix'];
             $cant_ocompra = $row_arts['cantidad'];
@@ -631,7 +631,7 @@ class compra_controller extends CI_Controller {
                 AND sucursal = $sucursal
                 ORDER BY fecha DESC LIMIT 1";
             $res_ocompra = mysqli_query($link, $sql_ocompra);
-            while ($row_arts = mysql_fetch_array($res_ocompra)) {
+            while ($row_arts = mysqli_fetch_array($res_ocompra)) {
                 $ocompra = $row_arts['ocompra'];
                 $cantidadped = $row_arts['cantidadped'];
                 $cantidadrec = $row_arts['cantidadrec'];
@@ -663,7 +663,7 @@ class compra_controller extends CI_Controller {
                     $cantidad_stk = 0;
                     $cantidad_stk_nueva = 0;
                     $cont_stk = 0;
-                    while ($row_stk = mysql_fetch_array($res_stk)) {
+                    while ($row_stk = mysqli_fetch_array($res_stk)) {
                         $cantidad_stk = $row_stk['cantidad'];
                         $cont_stk++;
                     }

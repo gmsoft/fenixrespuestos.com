@@ -29,7 +29,7 @@ $dto_rec1 = 0;
 $dto_rec2 = 0;
 $dto_rec3 = 0;
 $recargo_lista = 0;
-while($row_prov = mysql_fetch_array($res_prov)) {
+while($row_prov = mysqli_fetch_array($res_prov)) {
 	$contador_proveedor++;
 	$codigo_proveedor = $row_prov['codigo_proveedor'];
 	$nombre_proveedor = $row_prov['nombre_proveedor'];
@@ -79,7 +79,7 @@ $sql_cod_dto = "SELECT COLUMN_NAME, DATA_TYPE, IS_NULLABLE, COLUMN_DEFAULT
   LIMIT 1";
 $res_cod_dto = mysqli_query($link, $sql_cod_dto);
 $contador_cod_dto = 0;
-while($row_cod_dto = mysql_fetch_array($res_cod_dto)) {
+while($row_cod_dto = mysqli_fetch_array($res_cod_dto)) {
 	$contador_cod_dto++;
 }
 
@@ -100,7 +100,7 @@ if (!$res) {
 	fclose($file_nuevos);
 	die("ERROR: No se pudo leer tabla $nombre_tabla : $sql\r\n");
 }
-while($row = mysql_fetch_array($res)) {
+while($row = mysqli_fetch_array($res)) {
 	$original = $row[$columna_cod_interno];
 	$descripcion = $row['descripcion'];
 	$descripcion = str_replace("'","",$descripcion);
@@ -120,7 +120,7 @@ while($row = mysql_fetch_array($res)) {
 	AND interno_proveedor = '$original' LIMIT 1";
 	$res_costo = mysqli_query($link, $sql_costo);
 	$contador_costo = 0;
-	while ($row_costo = mysql_fetch_array($res_costo)) {
+	while ($row_costo = mysqli_fetch_array($res_costo)) {
 		
 		$codigo_fenix = $row_costo['codigo_fenix'];
 		$interno_proveedor = $row_costo['interno_proveedor'];
@@ -147,7 +147,7 @@ while($row = mysql_fetch_array($res)) {
 			$sql_dto = "SELECT porcentaje_dto FROM proveedor_dto_vw WHERE proveedor_id = $proveedor_id AND codigo = '$cod_dto'";
 			
 			$res_dto = mysqli_query($link, $sql_dto);
-			while ($row_dto = mysql_fetch_array($res_dto)) {
+			while ($row_dto = mysqli_fetch_array($res_dto)) {
 				$porcentaje_dto = $row_dto['porcentaje_dto'];
 				
 				//Si el valor es POSITIVO es un Recargo, sino un descuento

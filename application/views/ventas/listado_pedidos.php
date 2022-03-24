@@ -52,7 +52,7 @@
                                             <select id="proveedor">
 
                                                 <?php
-                                                while ($row_prov = mysql_fetch_array($result_prov)) {
+                                                while ($row_prov = mysqli_fetch_array($result_prov)) {
                                                     echo '<option value="' . $row_prov['proveedor_id'] . '">' . $row_prov['nombre_proveedor'] . ' [' . $row_prov['codigo_proveedor'] . ']</option>';
                                                 }
                                                 ?>
@@ -99,7 +99,7 @@
                                     GROUP BY ocompra
                                     ORDER BY fecha desc, ocompra desc";
                                     $res_ocompra = mysqli_query($link, $sql_ocompra);
-                                    while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
+                                    while ($row_ocompra = mysqli_fetch_array($res_ocompra)) {
                                         $importe_total = number_format($row_ocompra['importe'], 2, '.', ',');
                                         ?>
                                         <tr>
