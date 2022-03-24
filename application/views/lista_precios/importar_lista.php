@@ -1,5 +1,14 @@
 <?php ini_set('MAX_EXECUTION_TIME', -1);
 
+$link = mysqli_connect("db-mysql-nyc3-22736-do-user-11066346-0.b.db.ondigitalocean.com", "doadmin", "AmMG2DvQVU4GgWgk", "defaultdb", 25060);
+
+/* comprobar la conexión */
+if (mysqli_connect_errno()) {
+    printf("Falló la conexión: %s\n", mysqli_connect_error());
+    exit();
+}
+
+
 if (isset($_GET['lista'])) {
     
      $registros_importados = 0;
@@ -30,7 +39,7 @@ if (isset($_GET['lista'])) {
         FROM listas l
         INNER JOIN proveedores p ON p.`id` =  l.`proveedor_id`
         WHERE l.`id` = $id_lista";
-    $result = mysqli_query($query);     
+    $result = mysqli_query($link, $query);     
     
     $row = mysqli_fetch_array($result);         
     $archivo = $row['nombre_archivo'];
@@ -54,7 +63,7 @@ if (isset($_GET['lista'])) {
 
         //truncate
         $sql_truncate = "truncate table $nombre_tabla";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
         //Load Data
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
@@ -71,7 +80,7 @@ if (isset($_GET['lista'])) {
                         cod_dto = TRIM(SUBSTR(@row,133,1)),
                         cod_lista = TRIM(SUBSTR(@row,134,2)),
                         precio_iva = TRIM(SUBSTR(@row,142,11))";
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
         if (!$res) {
             die('Error al importar lista VW. Cod Prov: ' . $codigo_proveedor . ' Tabla: ' . $nombre_tabla . ' File: ' . $archivo . ' SQL: '. $load_data);
         } else {
@@ -80,15 +89,15 @@ if (isset($_GET['lista'])) {
 /*
         //Agrega columna ID
         $sql_columna_id = "ALTER TABLE $nombre_tabla ADD id INT(11)";//" PRIMARY KEY AUTO_INCREMENT";
-        $res_ci = mysqli_query($sql_columna_id);
+        $res_ci = mysqli_query($link, $sql_columna_id);
 
         //Agrega Clave Primaria
         $sql_pk = "ALTER TABLE $nombre_tabla ADD PRIMARY KEY (id)";//" ";
-        $res_pk = mysqli_query($sql_pk);
+        $res_pk = mysqli_query($link, $sql_pk);
 */
         //cantidad de registros
         $sql_cant = "select count(*) as registros from $nombre_tabla";    
-        $res = mysqli_query($sql_cant);
+        $res = mysqli_query($link, $sql_cant);
         $row = mysqli_fetch_array($res);
         $registros_importados = $row['registros'];
     }
@@ -101,7 +110,7 @@ if (isset($_GET['lista'])) {
         /*
         //CARGA LOS ARTICULOS CON LA LISTA VW
         $sql_truncate = "truncate table articulos";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
          //Load Data
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
@@ -116,10 +125,10 @@ if (isset($_GET['lista'])) {
                         utilidad = 40,
                         fecha_alta = NOW(),
                         precio_lista = TRIM(SUBSTR(@row,142,11))/100";
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         $sql_update = "UPDATE articulos SET codigo_fenix = CONCAT(SUBSTRING(codigo_fenix,1,3) , '/' ,SUBSTRING(codigo_fenix,5,3)  , SUBSTRING(codigo_fenix,9,3) , '/' ,SUBSTRING(codigo_fenix,13,2) , '/' ,SUBSTRING(codigo_fenix,16,3) )";
-        $res_update = mysqli_query($sql_update);
+        $res_update = mysqli_query($link, $sql_update);
         */   
 
         /**
@@ -128,7 +137,7 @@ if (isset($_GET['lista'])) {
 
         /*
         $sql_truncate = "truncate table costos_proveedor";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
         */
         
         
@@ -154,10 +163,10 @@ if (isset($_GET['lista'])) {
                         fecha = NOW(),
                         costo = TRIM(SUBSTR(@row,142,11)) /100,
                         costo_lista = TRIM(SUBSTR(@row,142,11))/100";
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         $sql_update = "UPDATE costos_proveedor SET codigo_fenix = CONCAT(SUBSTRING(codigo_fenix,1,3) , '/' ,SUBSTRING(codigo_fenix,5,3)  , SUBSTRING(codigo_fenix,9,3) , '/' ,SUBSTRING(codigo_fenix,13,2) , '/' ,SUBSTRING(codigo_fenix,16,3) ) where proveedor_id = $pid";        
-        $res_update = mysqli_query($sql_update);
+        $res_update = mysqli_query($link, $sql_update);
         
 
         /**
@@ -165,7 +174,7 @@ if (isset($_GET['lista'])) {
         */
         /*
         $sql_truncate = "truncate table stock";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
                         INTO TABLE stock (@row) 
@@ -174,15 +183,15 @@ if (isset($_GET['lista'])) {
                         cantidad = 999,
                         sucursal_id = 1,
                         ubicacion = 'A000'";
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         $sql_update = "UPDATE stock SET articulo_fenix = CONCAT(SUBSTRING(articulo_fenix,1,3) , '/' ,SUBSTRING(articulo_fenix,5,3) , SUBSTRING(articulo_fenix,9,3) , '/' ,SUBSTRING(articulo_fenix,13,2) , '/' ,SUBSTRING(articulo_fenix,16,3) )";
-        $res_update = mysqli_query($sql_update);
+        $res_update = mysqli_query($link, $sql_update);
         */
         
         /*
         $sql_vw = "SELECT original, descripcion, precio_iva FROM lista_vw";
-        $res_vw = mysqli_query($sql_vw);
+        $res_vw = mysqli_query($link, $sql_vw);
         $c = 0;
         while ($row_vw = mysqli_fetch_array($res_vw)) {
             $original = $row_vw['original'];
@@ -192,7 +201,7 @@ if (isset($_GET['lista'])) {
             //obtiene la descripcion
             
             $sql_descrip = "SELECT descripcion FROM lista_fenix WHERE codigo_oem = '$original'";
-            $res_descrip = mysqli_query($sql_descrip);
+            $res_descrip = mysqli_query($link, $sql_descrip);
             while ($row_descrip = mysqli_fetch_array($res_descrip)) {
                 $descripcion = $row_descrip['descripcion'];
             }
@@ -203,7 +212,7 @@ if (isset($_GET['lista'])) {
                                             VALUES ('$original', '$original', '$descripcion', '$precio_iva');";   
             echo $insert_sql . '<br>';
             
-            $res_insert = mysqli_query($insert_sql);
+            $res_insert = mysqli_query($link, $insert_sql);
             
             if (!$res_insert) {
                 die('Error en:' . $insert_sql);
@@ -225,19 +234,19 @@ if (isset($_GET['lista'])) {
 
         //truncate
         $sql_truncate = "truncate table lista_fenix";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
         //Load Data
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
                       INTO TABLE lista_fenix  
                       FIELDS TERMINATED BY ';'";
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         //Actualiza los articulos
         
         $sql_actualiza = "select codigo_fenix, codigo_oem, descripcion, stock, ubicacion, proveedor, reemplazo, marca, precio 
                           from lista_fenix";    
-        $res = mysqli_query($sql_actualiza);
+        $res = mysqli_query($link, $sql_actualiza);
         while($row = mysqli_fetch_array($res)) {
             
             $codigo_fenix = $row['codigo_fenix'];
@@ -253,7 +262,7 @@ if (isset($_GET['lista'])) {
             $precio = str_replace(".", "", $precio);
 
             $sql_art = "select * from articulos WHERE codigo_fenix = '$codigo_fenix'";
-            $res_art = mysqli_query($sql_art);
+            $res_art = mysqli_query($link, $sql_art);
             $c = 0;
             while($row_art = mysqli_fetch_array($res_art)) {
                 $c++;    
@@ -261,7 +270,7 @@ if (isset($_GET['lista'])) {
                         . " descripcion = '$descripcion', precio_lista = '$precio',"
                         . " marca = '$marca', proveedor_testigo = '$proveedor' "
                         . " WHERE codigo_fenix = '$codigo_fenix'";
-                $res_update = mysqli_query($update_sql);
+                $res_update = mysqli_query($link, $update_sql);
                 if(!$res_update){
                     die('Error en:' . $update_sql);
                 }
@@ -270,7 +279,7 @@ if (isset($_GET['lista'])) {
             if($c == 0) {
                  $insert_sql = "INSERT INTO articulos(codigo_fenix, codigo_oem, descripcion, precio_lista) 
                                             values('$codigo_fenix', '$codigo_oem', '$descripcion', '$precio')";   
-                 $res_insert = mysqli_query($insert_sql);        
+                 $res_insert = mysqli_query($link, $insert_sql);        
                  if(!$res_update){
                     die('Error en:' . $insert_sql);
                  }
@@ -279,19 +288,19 @@ if (isset($_GET['lista'])) {
             //Actualiza stock y ubicacion
            
             $sql_stk = "SELECT articulo_fenix FROM stock WHERE articulo_fenix = '$codigo_fenix'";
-            $res_stk = mysqli_query($sql_stk);
+            $res_stk = mysqli_query($link, $sql_stk);
             $c_stk = 0;
             while($row_stk = mysqli_fetch_array($res_stk)) {
                 $c_stk++;    
                 $update_stk = "UPDATE stock SET cantidad = '$stock', ubicacion = '$ubicacion'
                                 WHERE articulo_fenix = '$codigo_fenix'";
-                $res_update_stk = mysqli_query($update_stk); 
+                $res_update_stk = mysqli_query($link, $update_stk); 
             }
 
             if($c_stk == 0) {
                  $insert_stk = "INSERT INTO stock(articulo_fenix, cantidad, sucursal_id, ubicacion) 
                                             values('$codigo_fenix', '$stock', '1', '$ubicacion')";   
-                 $res_insert = mysqli_query($insert_stk);        
+                 $res_insert = mysqli_query($link, $insert_stk);        
             }
             
         }
@@ -299,7 +308,7 @@ if (isset($_GET['lista'])) {
 
         //cantidad de registros
         $sql_cant = "select count(*) as registros from articulos";    
-        $res = mysqli_query($sql_cant);
+        $res = mysqli_query($link, $sql_cant);
         $row = mysqli_fetch_array($res);
         $registros_importados = $row['registros'];
         
@@ -311,17 +320,17 @@ if (isset($_GET['lista'])) {
     if($codigo_proveedor == '002') {
         //truncate
         $sql_truncate = "truncate table ofertas";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
         //Load Data
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
                       INTO TABLE ofertas  
                       FIELDS TERMINATED BY ';'";
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         //cantidad de registros
         $sql_cant = "select count(*) as registros from ofertas";    
-        $res = mysqli_query($sql_cant);
+        $res = mysqli_query($link, $sql_cant);
         $row = mysqli_fetch_array($res);
         $registros_importados = $row['registros'];
     }
@@ -330,7 +339,7 @@ if (isset($_GET['lista'])) {
     if ($codigo_proveedor == '051') {
         //truncate
         $sql_truncate = "truncate table $nombre_tabla";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
         //Load Data
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
@@ -347,19 +356,19 @@ if (isset($_GET['lista'])) {
                         precio = TRIM(SUBSTR(@row,84,10))";
 
         
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         //Agrega columna ID
         $sql_columna_id = "ALTER TABLE $nombre_tabla ADD id INT(11)";//" PRIMARY KEY AUTO_INCREMENT";
-        $res_ci = mysqli_query($sql_columna_id);
+        $res_ci = mysqli_query($link, $sql_columna_id);
 
         //Agrega Clave Primaria
         $sql_pk = "ALTER TABLE $nombre_tabla ADD PRIMARY KEY (id)";//" ";
-        $res_pk = mysqli_query($sql_pk);
+        $res_pk = mysqli_query($link, $sql_pk);
 
         //cantidad de registros
         $sql_cant = "select count(*) as registros from $nombre_tabla";    
-        $res = mysqli_query($sql_cant);
+        $res = mysqli_query($link, $sql_cant);
         $row = mysqli_fetch_array($res);
         $registros_importados = $row['registros'];
     }
@@ -368,7 +377,7 @@ if (isset($_GET['lista'])) {
     if ($codigo_proveedor == '006') {
         //truncate
         $sql_truncate = "truncate table $nombre_tabla";
-        $res = mysqli_query($sql_truncate);
+        $res = mysqli_query($link, $sql_truncate);
 
         //Load Data
         $load_data = "LOAD DATA LOCAL INFILE '$archivo' 
@@ -392,19 +401,19 @@ if (isset($_GET['lista'])) {
                         UNIFICA = TRIM(SUBSTR(@row,285,10))";
 
         
-        $res = mysqli_query($load_data);
+        $res = mysqli_query($link, $load_data);
 
         //Agrega columna ID
         $sql_columna_id = "ALTER TABLE $nombre_tabla ADD id INT(11)";//" PRIMARY KEY AUTO_INCREMENT";
-        $res_ci = mysqli_query($sql_columna_id);
+        $res_ci = mysqli_query($link, $sql_columna_id);
 
         //Agrega Clave Primaria
         $sql_pk = "ALTER TABLE $nombre_tabla ADD PRIMARY KEY (id)";//" ";
-        $res_pk = mysqli_query($sql_pk);
+        $res_pk = mysqli_query($link, $sql_pk);
 
         //cantidad de registros
         $sql_cant = "select count(*) as registros from $nombre_tabla";    
-        $res = mysqli_query($sql_cant);
+        $res = mysqli_query($link, $sql_cant);
         $row = mysqli_fetch_array($res);
         $registros_importados = $row['registros'];
     }
@@ -424,7 +433,7 @@ if (isset($_GET['lista'])) {
         $sql_articulos_actualizar = ''; 
         //Borra la tabla
         $sql_droptable = "DROP TABLE IF EXISTS $nombre_tabla;";
-        $res_droptable = mysqli_query($sql_droptable);
+        $res_droptable = mysqli_query($link, $sql_droptable);
         //die($nombre_tabla);
         if ($res_droptable) {
             //Create tabla
@@ -434,7 +443,7 @@ if (isset($_GET['lista'])) {
                 $sql_createtable .= "$colname varchar(255)". ($k < (count($cols)-1)?',':'');
             }
             $sql_createtable .= ');';
-            $res_createtable = mysqli_query($sql_createtable);
+            $res_createtable = mysqli_query($link, $sql_createtable);
             
             if ($res_createtable) {
                 if (trim($script) == '') {
@@ -448,13 +457,13 @@ if (isset($_GET['lista'])) {
                      $script = str_replace('{nombre_tabla}', $nombre_tabla, $script);
                      $load_data = $script;
                 }
-                $res_loaddata = mysqli_query($load_data);
+                $res_loaddata = mysqli_query($link, $load_data);
                 
                 //die('importa');
 
                 //Ejecuta el post script
                 if ($script != '' && $post_script != '') {
-                    $res_postscript = mysqli_query($post_script);
+                    $res_postscript = mysqli_query($link, $post_script);
                     if (!$res_postscript){
                         die('Error al ejecutar post script:' . $post_script);
                     }
@@ -465,7 +474,7 @@ if (isset($_GET['lista'])) {
 
                  //Ejecuta el post script - Para lista Haimovixh
                 if ($post_script != '' && $script == '') {
-                    $res_postscript = mysqli_query($post_script);
+                    $res_postscript = mysqli_query($link, $post_script);
                     if (!$res_postscript){
                         die('Error al ejecutar post script:' . $post_script);
                     }
@@ -481,7 +490,7 @@ if (isset($_GET['lista'])) {
                     //Busca los articulos cargados en costos del proveedor
                     $sql_costos_cargados = "SELECT codigo_fenix, interno_proveedor, descripcion, marca, costo, utilidad"
                             . " FROM costos_proveedor WHERE proveedor_id = $proveedor_id";
-                    $res_costos_cargados = mysqli_query($sql_costos_cargados);
+                    $res_costos_cargados = mysqli_query($link, $sql_costos_cargados);
                     //echo $sql_costos_cargados.'<br>';
                     while($row_costop = mysqli_fetch_array($res_costos_cargados)) {
                         $interno_prov = $row_costop['interno_proveedor'];
@@ -493,7 +502,7 @@ if (isset($_GET['lista'])) {
                         //Busca el articulo en la lista 
                         $sql_costos_lista = "SELECT $columnas FROM $nombre_tabla "
                                 . " WHERE $columna_cod_interno = '$interno_prov'";
-                        $res_costo_lista = mysqli_query($sql_costos_lista);
+                        $res_costo_lista = mysqli_query($link, $sql_costos_lista);
                         
                         while($row_costo_lista = mysqli_fetch_array($res_costo_lista)) {
                             //id, cod_cromosol, descripcion, marca, precio_lista, cod_oem
@@ -526,7 +535,7 @@ if (isset($_GET['lista'])) {
                             
                             $sql_update .= " WHERE proveedor_id = $proveedor_id AND codigo_fenix = '$codigo_fenix' AND interno_proveedor = '$interno_prov';";
                             
-                            $res_update = mysqli_query($sql_update);
+                            $res_update = mysqli_query($link, $sql_update);
                             
                             if ($res_update) {
                                 $contador_actualizo++;
@@ -557,7 +566,7 @@ if (isset($_GET['lista'])) {
                     //$sql_nuevos = "select $columna_cod_interno, descripcion, marca, precio_lista FROM $nombre_tabla c where c.`$columna_cod_interno` NOT IN (SELECT interno_proveedor FROM costos_proveedor WHERE proveedor_id = $proveedor_id)";
                     //$sql_nuevos = "select * FROM $nombre_tabla c where c.`$columna_cod_interno` NOT IN (SELECT interno_proveedor FROM costos_proveedor WHERE proveedor_id = $proveedor_id)";
                     $sql_nuevos = "select * FROM $nombre_tabla c where 1 = 1";
-                    $res_nuevos = mysqli_query($sql_nuevos);
+                    $res_nuevos = mysqli_query($link, $sql_nuevos);
                     while ($row_nuevos = mysqli_fetch_array($res_nuevos)) {
                         $articulos_nuevos_csv .= $row_nuevos[$columna_cod_interno].';'.$res_nuevos['descripcion'].';'.$res_nuevos['marca']. '\n\r';
                         $contador_nuevos++;
@@ -586,7 +595,7 @@ if (isset($_GET['lista'])) {
                     
                     //cantidad de registros
                    $sql_cant = "select count(*) as registros from $nombre_tabla";    
-                   $res = mysqli_query($sql_cant);
+                   $res = mysqli_query($link, $sql_cant);
                    $row = mysqli_fetch_array($res);
                    $registros_importados = $row['registros'];
                  } else {
@@ -599,7 +608,7 @@ if (isset($_GET['lista'])) {
 
     //Update lista
     $sql_update_fecha = "UPDATE listas SET fecha_actualizacion = '$fecha_importacion' where id = $id_lista";
-    $res = mysqli_query($sql_update_fecha);
+    $res = mysqli_query($link, $sql_update_fecha);
     
 
 }
@@ -631,11 +640,11 @@ if (isset($_GET['lista'])) {
                     FROM listas l
                     INNER JOIN proveedores p ON p.`id` =  l.`proveedor_id`
                     WHERE importa_lista = 'SI' ORDER BY p.`nombre_proveedor`";
-               $result = mysqli_query($query);
+               $result = mysqli_query($link, $query);
 
                $query_prov = "SELECT id, nombre_proveedor, codigo_proveedor
                     FROM proveedores ORDER BY nombre_proveedor";
-               $result_prov = mysqli_query($query_prov);
+               $result_prov = mysqli_query($link, $query_prov);
             ?>
             <div>
                 <form method="get" action="" id="form-importar">
