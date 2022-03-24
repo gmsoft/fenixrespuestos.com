@@ -193,8 +193,8 @@
                                                     <?php
                                                      $prov_id = $valor['proveedor_testigo'];
                                                      $sql_prov = "SELECT codigo_proveedor FROM proveedores WHERE id = $prov_id";
-                                                     $res_prov = mysql_query($sql_prov);
-                                                     $row_prov = mysql_fetch_array($res_prov);
+                                                     $res_prov = mysqli_query($sql_prov);
+                                                     $row_prov = mysqli_fetch_array($res_prov);
                                                      echo $row_prov['codigo_proveedor'];
                                                      ?>
                                                 </td>
@@ -207,14 +207,14 @@
                                                 //Rubro
                                                 /*
                                                 $sql_rubro = "SELECT nombre FROM rubros WHERE id = '".$valor['rubro']."'";
-                                                $res_rubro = mysql_query($sql_rubro);
-                                                $row_rubro = mysql_fetch_array($res_rubro);
+                                                $res_rubro = mysqli_query($sql_rubro);
+                                                $row_rubro = mysqli_fetch_array($res_rubro);
                                                 */
                                                 /*
                                                 //Stock
                                                 $sql_stock = "SELECT cantidad FROM stock WHERE articulo_fenix = '".$valor['codigo_fenix']."' and sucursal_id = 1";
-                                                $res_stock = mysql_query($sql_stock);
-                                                $row_stock = mysql_fetch_array($res_stock);
+                                                $res_stock = mysqli_query($sql_stock);
+                                                $row_stock = mysqli_fetch_array($res_stock);
                                                 */
                                                 ?>
                                                 <td class=" ">
