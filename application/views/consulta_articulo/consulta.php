@@ -1,3 +1,12 @@
+<?php
+$link = mysqli_connect("db-mysql-nyc3-22736-do-user-11066346-0.b.db.ondigitalocean.com", "doadmin", "AmMG2DvQVU4GgWgk", "defaultdb", 25060);
+
+/* comprobar la conexión */
+if (mysqli_connect_errno()) {
+    printf("Falló la conexión: %s\n", mysqli_connect_error());
+    exit();
+}
+?>
 <?php $this->load->view('administrador/dashboard/header'); ?>
 <!-- BEGIN PAGE -->
 <div id="container" class="row-fluid">
@@ -193,7 +202,7 @@
                                                     <?php
                                                      $prov_id = $valor['proveedor_testigo'];
                                                      $sql_prov = "SELECT codigo_proveedor FROM proveedores WHERE id = $prov_id";
-                                                     $res_prov = mysqli_query($sql_prov);
+                                                     $res_prov = mysqli_query($link, $sql_prov);
                                                      $row_prov = mysqli_fetch_array($res_prov);
                                                      echo $row_prov['codigo_proveedor'];
                                                      ?>
