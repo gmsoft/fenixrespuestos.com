@@ -1,4 +1,11 @@
 <?php
+$link = mysqli_connect("db-mysql-nyc3-22736-do-user-11066346-0.b.db.ondigitalocean.com", "doadmin", "AmMG2DvQVU4GgWgk", "defaultdb", 25060);
+
+/* comprobar la conexión */
+if (mysqli_connect_errno()) {
+    printf("Falló la conexión: %s\n", mysqli_connect_error());
+    exit();
+}
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
@@ -63,11 +70,11 @@ class articulo_controller extends CI_Controller {
                  $query_prov = "SELECT proveedor_id,p.codigo_proveedor, p.`nombre_proveedor` , l.`nombre_archivo`, l.`id`
                     FROM listas l
                     INNER JOIN proveedores p ON p.`id` =  l.`proveedor_id`";
-                 $result_prov = mysql_query($query_prov);
+                 $result_prov = mysqli_query($link, $query_prov);
                  
                  $combo_prov = '<select id="field-proveedor_testigo" name="proveedor_testigo" class="chosen-select">';
                                                   
-                  while($row_prov = mysql_fetch_array($result_prov)){
+                  while($row_prov = mysqli_fetch_array($result_prov)){
                         $combo_prov .= '<option value="' . $row_prov['codigo_proveedor'] . '">' . $row_prov['nombre_proveedor'] . ' [' . $row_prov['codigo_proveedor'] . ']</option>';
                   }
                   $combo_prov .= '</select>';
@@ -79,11 +86,11 @@ class articulo_controller extends CI_Controller {
                  $query_prov = "SELECT proveedor_id,p.codigo_proveedor, p.`nombre_proveedor` , l.`nombre_archivo`, l.`id`
                     FROM listas l
                     INNER JOIN proveedores p ON p.`id` =  l.`proveedor_id`";
-                 $result_prov = mysql_query($query_prov);
+                 $result_prov = mysqli_query($link, $query_prov);
                  
                  $combo_prov = '<select id="field-proveedor_testigo" name="proveedor_testigo" class="chosen-select">';
                                                   
-                  while($row_prov = mysql_fetch_array($result_prov)){
+                  while($row_prov = mysqli_fetch_array($result_prov)){
                         $combo_prov .= '<option value="' . $row_prov['codigo_proveedor'] . '"  ' . ($value == $row_prov['codigo_proveedor']?' selected':'') . ' >' . $row_prov['nombre_proveedor'] . ' [' . $row_prov['codigo_proveedor'] . ']</option>';
                   }
                   $combo_prov .= '</select>';
