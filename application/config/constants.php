@@ -36,14 +36,5 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
-global $link;
-$link = mysqli_connect("db-mysql-nyc3-22736-do-user-11066346-0.b.db.ondigitalocean.com", "doadmin", "AmMG2DvQVU4GgWgk", "defaultdb", 25060);
-
-/* comprobar la conexión */
-if (mysqli_connect_errno()) {
-    printf("DB Connection failed: %s\n", mysqli_connect_error());
-    exit();
-}
-
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

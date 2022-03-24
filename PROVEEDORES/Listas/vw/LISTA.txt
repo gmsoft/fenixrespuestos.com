@@ -1,0 +1,2 @@
+Codigo	Catalogo	Descripcion	Precio	CodDes
+000001199	000-001-199	JUNTA TORI	3,63	4
