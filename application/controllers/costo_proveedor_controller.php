@@ -73,7 +73,7 @@ class costo_proveedor_controller extends CI_Controller {
                     . "WHERE proveedor_id = $proveedor "
                     . "AND codigo_fenix = '$codfenix' "
                     . "AND interno_proveedor = '$interno'";                
-            $res_costo = mysql_query($link, $sql_costo);
+            $res_costo = mysqli_query($link, $sql_costo);
             
             $num_row = mysql_num_rows($res_costo);
             
@@ -82,7 +82,7 @@ class costo_proveedor_controller extends CI_Controller {
             //Limpia los testigos
             if ($testigo == 'SI') {
                 $sql_limpiar_testigos = "UPDATE costos_proveedor SET testigo = 'NO' WHERE codigo_fenix = '$codfenix'";
-                $res_limpiar_testigos = mysql_query($link, $sql_limpiar_testigos);
+                $res_limpiar_testigos = mysqli_query($link, $sql_limpiar_testigos);
                 if (!$res_limpiar_testigos) {
                     $strMensaje .= "Error al limpiar testigos. ";
                 }
@@ -107,7 +107,7 @@ class costo_proveedor_controller extends CI_Controller {
                 $strMensaje .= "*** Costo actualizado con exito ***";
             }
             
-            $res = mysql_query($link, $sql);
+            $res = mysqli_query($link, $sql);
             
             if($res) {
                 //Si es el Testigo actualiza el precio de lista
@@ -136,7 +136,7 @@ class costo_proveedor_controller extends CI_Controller {
                             
                     //Actualiza el precio de lista y la utilidad
                     $sql_precio_lista = "UPDATE articulos SET precio_lista = '$precio_lista', utilidad = '$utilidad' WHERE codigo_fenix = '$codfenix'";
-                    $res_precio_lista = mysql_query($link, $sql_precio_lista);
+                    $res_precio_lista = mysqli_query($link, $sql_precio_lista);
                 }
                 echo $strMensaje;
             } else {
@@ -241,7 +241,7 @@ class costo_proveedor_controller extends CI_Controller {
                 . "WHERE proveedor_id = $proveedor "
                 . "AND (codigo_fenix = '$codfenix' "
                 . "OR interno_proveedor = '$interno')";
-        $res_costo = mysql_query($link, $sql_costo);
+        $res_costo = mysqli_query($link, $sql_costo);
         
         while($row_costo = mysql_fetch_array($res_costo)) {
             
@@ -272,14 +272,14 @@ class costo_proveedor_controller extends CI_Controller {
         //Lee la lista del proveedor 
         /* @TODO: Arreglar las columnas de Precios de las listas
         $sql_lista = "SELECT nombre_tabla , columna_cod_interno FROM listas WHERE proveedor_id = $proveedor";
-        $res_lista = mysql_query($link, $sql_lista);
+        $res_lista = mysqli_query($link, $sql_lista);
         while($row_lista = mysql_fetch_array($res_lista)) {
             $nombre_tabla = $row_lista['nombre_tabla'];
             $columna_cod_interno = $row_lista['columna_cod_interno'];
             
             $sql_lista_prov = "SELECT descripcion, precio_lista, marca FROM $nombre_tabla WHERE $columna_cod_interno = '$interno'";
             die($sql_lista_prov);
-            $res_lista_prov = mysql_query($link, $sql_lista_prov);
+            $res_lista_prov = mysqli_query($link, $sql_lista_prov);
             while($row_lista_prov = mysql_fetch_array($res_lista_prov)) {
                 $descripcion_lista = $row_lista_prov['descripcion'];
                 $precio_lista = $row_lista_prov['precio_lista'];
@@ -304,7 +304,7 @@ class costo_proveedor_controller extends CI_Controller {
         $items['utilidad'] = 0;
 
         $sql_costo = "SELECT utilidad FROM costos_proveedor WHERE codigo_fenix = '$codfenix' AND testigo = 'SI'";
-        $res_costo = mysql_query($link, $sql_costo);
+        $res_costo = mysqli_query($link, $sql_costo);
         
         while($row_costo = mysql_fetch_array($res_costo)) {
             $utilidad = $row_costo['utilidad'];
@@ -327,7 +327,7 @@ class costo_proveedor_controller extends CI_Controller {
                 . "FROM articulos "
                 . "WHERE codigo_fenix = '$codfenix' ";
             
-        $res_costo = mysql_query($link, $sql_costo);
+        $res_costo = mysqli_query($link, $sql_costo);
         
         $items = array(); 
         $items['descripcion'] = "";
@@ -349,7 +349,7 @@ class costo_proveedor_controller extends CI_Controller {
         $sql_interno_costo = "SELECT codigo_fenix, interno_proveedor, costo, dto1,dto2,dto3,rec1,testigo, utilidad "
                 . "FROM costos_proveedor "
                 . "WHERE codigo_fenix = '$codfenix' AND proveedor_id = $proveedor";
-        $res_interno_costo = mysql_query($link, $sql_interno_costo);
+        $res_interno_costo = mysqli_query($link, $sql_interno_costo);
         
         while($row_interno_costo = mysql_fetch_array($res_interno_costo)) {
             

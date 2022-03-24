@@ -67,7 +67,7 @@
                                         <?php
                                          //Fecha de la lista
                                         $sql = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'lista_chevrolet'";
-                                        $res = mysql_query($link, $sql);
+                                        $res = mysqli_query($link, $sql);
                                         $row = mysql_fetch_array($res);
                                         $fecha_actualizacion = $row['fecha_actualizacion'];
 

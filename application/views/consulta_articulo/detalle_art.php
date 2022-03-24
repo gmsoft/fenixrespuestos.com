@@ -48,7 +48,7 @@ $sucursal = $this->session->userdata['logged_in']['sucursal'];
                         <?php 
                         
                         $sql_reemplazo = "select reemplazo, proveedor, marca from lista_fenix where codigo_oem = '" . $articulo['codigo_oem'] . "'";
-                        $res = mysql_query($link, $sql_reemplazo);
+                        $res = mysqli_query($link, $sql_reemplazo);
                         $reemplazo = '';
                         $marca = '';
                         while($row_datos = mysql_fetch_array($res)) {
@@ -76,7 +76,7 @@ $sucursal = $this->session->userdata['logged_in']['sucursal'];
                         <?php 
                         
                         $sql_proveedor = "SELECT p.id, p.nombre_proveedor, p.codigo_proveedor FROM costos_proveedor c INNER JOIN proveedores p ON p.id = c.proveedor_id WHERE testigo = 'SI' AND codigo_fenix = '" . $articulo['codigo_fenix'] . "'";
-                        $res = mysql_query($link, $sql_proveedor);
+                        $res = mysqli_query($link, $sql_proveedor);
                         @$row = mysql_fetch_array($res);
                         echo '<h3>' . @$row['codigo_proveedor'] . '</h3>';
 
@@ -87,7 +87,7 @@ $sucursal = $this->session->userdata['logged_in']['sucursal'];
                         <?php
                         /* 
                         $sql_marca = "select nombre from marcas where id = " . $articulo['marca'];
-                        $res = mysql_query($link, $sql_marca);
+                        $res = mysqli_query($link, $sql_marca);
                         @$row = mysql_fetch_array($res);
                         $marca = $row['nombre'];*/
                         if ($marca != '') {
@@ -99,7 +99,7 @@ $sucursal = $this->session->userdata['logged_in']['sucursal'];
                         <label class="control-label">Rubro</label>
                         <?php 
                         $sql_rubro = "select nombre from rubros where id = " . $articulo['rubro'];
-                        $res = mysql_query($link, $sql_rubro);
+                        $res = mysqli_query($link, $sql_rubro);
                         $row = mysql_fetch_array($res);
                         echo '<h3>' . $row['nombre'] . '</h3>';
                         ?>
@@ -112,7 +112,7 @@ $sucursal = $this->session->userdata['logged_in']['sucursal'];
                         INNER JOIN sucursales c ON c.`id` = s.`sucursal_id` 
                         INNER JOIN ubicaciones u ON u.id = s.ubicacion
                         WHERE articulo_fenix = '" . $articulo['codigo_fenix'] . "' AND s.sucursal_id = $sucursal";
-                        $res_ubi = mysql_query($link, $sql_ubi);
+                        $res_ubi = mysqli_query($link, $sql_ubi);
                         @$row_ubi = mysql_fetch_array($res_ubi);
                         $ubicacion = $row_ubi['ubicacion'];
                         $stock = $row_ubi['cantidad'];

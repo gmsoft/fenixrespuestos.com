@@ -86,7 +86,7 @@ class presupuesto_model extends CI_Model {
                 . "WHERE presupuesto_nro = $presupuesto_nro "
                 //. "AND cliente_id = $cliente";
                 . "AND user_id = $user_id";
-        $res = mysql_query($link, $sql);
+        $res = mysqli_query($link, $sql);
         $importe_total = 0;
         $items = 0;
         $totales = array();

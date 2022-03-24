@@ -14,7 +14,7 @@
                                             <div class="controls controls-row">
                                                 <?php
                                                 $query_prov = "SELECT id, codigo_proveedor, nombre_proveedor FROM proveedores";
-                                                $result_prov = mysql_query($link, $query_prov);
+                                                $result_prov = mysqli_query($link, $query_prov);
 
                                                 ?>
                                                 <select id="proveedor" name="proveedor" class="chzn-select-deselect" data-placeholder="Seleccione proveedor">

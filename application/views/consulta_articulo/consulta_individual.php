@@ -92,7 +92,7 @@ $this->load->view('administrador/dashboard/header');
                                                             rp.`dto1`,rp.`dto2`,rp.`dto3`,rp.`rec1`, rp.`utilidad`, DATE_FORMAT(fecha,'%d/%m/%Y') AS fecha
                                                               FROM costos_proveedor  rp 
                                                               WHERE codigo_fenix = '" . $articulo['codigo_fenix'] . "' ORDER BY rp.`costo` ASC";
-                                                        $res = mysql_query($link, $sql);
+                                                        $res = mysqli_query($link, $sql);
                                                         while($row = mysql_fetch_array($res)){
                                                             $testigo = $row['testigo'];
                                                             $utilidad = $row['utilidad'];
@@ -101,7 +101,7 @@ $this->load->view('administrador/dashboard/header');
                                                             $fecha_costo = $row['fecha'];
                                                             //Datos del Proveedor
                                                             $sql_datos_prov = "SELECT codigo_proveedor, nombre_proveedor FROM  proveedores WHERE id = $proveedor_costo";
-                                                            $res_datos_prov = mysql_query($link, $sql_datos_prov);
+                                                            $res_datos_prov = mysqli_query($link, $sql_datos_prov);
                                                             $nombre_proveedor = '';
                                                             while($row_datos_prov = mysql_fetch_array($res_datos_prov)){
                                                                 $nombre_proveedor = '[' . $row_datos_prov['codigo_proveedor'] . '] ' . $row_datos_prov['nombre_proveedor'];
@@ -119,7 +119,7 @@ $this->load->view('administrador/dashboard/header');
                                                             //Busca el codigo de dto (Deprecado, ahora busca de costo proveedor)
                                                             /*
                                                             $sql_cod_dto = "SELECT codigo FROM proveedor_dto_vw WHERE proveedor_id = $proveedor_costo AND porcentaje_dto = $dto1";
-                                                            $res_cod_dto = mysql_query($link, $sql_cod_dto);
+                                                            $res_cod_dto = mysqli_query($link, $sql_cod_dto);
                                                             $row_cod_dto = mysql_fetch_array($res_cod_dto);
                                                             $cod_dto = $row_cod_dto['codigo'];
                                                             */
@@ -172,7 +172,7 @@ $this->load->view('administrador/dashboard/header');
                                                     FROM ocompras oc
                                                     INNER JOIN proveedores p ON p.`id` = oc.`proveedor_id`
                                                     WHERE codigo_fenix = '".$articulo['codigo_fenix']."' ORDER BY fecha desc, ocompra desc";
-                                                    $res_ocompra = mysql_query($link, $sql_ocompra);
+                                                    $res_ocompra = mysqli_query($link, $sql_ocompra);
                                                     while($row_ocompra = mysql_fetch_array($res_ocompra)) {
                                                         ?>
                                                         <tr>
@@ -205,7 +205,7 @@ $this->load->view('administrador/dashboard/header');
                                                     <tbody>
                                                         <?php
                                                         $sql_stock = "SELECT cantidad, c.`nombre`, u.`ubicacion` FROM stock s INNER JOIN sucursales c ON c.`id` = s.`sucursal_id` INNER JOIN ubicaciones u ON u.`id` = s.`ubicacion` WHERE articulo_fenix = '" . $articulo['codigo_fenix'] . "'";    
-                                                        $res = mysql_query($link, $sql_stock);
+                                                        $res = mysqli_query($link, $sql_stock);
                                                         @$rows_stock = mysql_num_rows($res);
                                                         if ($rows_stock > 0) {
                                                             while ($row = mysql_fetch_array($res)) {
@@ -247,7 +247,7 @@ $this->load->view('administrador/dashboard/header');
                                                     INNER JOIN proveedores p ON p.`id` = fc.`proveedor_id`
                                                     WHERE codigo_fenix = '".$articulo['codigo_fenix']."' 
                                                     order by fecha2 Desc limit 1";
-                                                    $res_ocompra = mysql_query($link, $sql_ocompra);
+                                                    $res_ocompra = mysqli_query($link, $sql_ocompra);
                                                     while($row_ocompra = mysql_fetch_array($res_ocompra)) {
                                                         ?>
                                                         <tr>

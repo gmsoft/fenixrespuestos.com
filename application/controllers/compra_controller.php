@@ -75,7 +75,7 @@ class compra_controller extends CI_Controller {
                 . "WHERE proveedor_id = $proveedor "
                 . "AND codigo_fenix = '$codfenix' "
                 . "AND interno_proveedor = '$interno'";
-        $res_costo = mysql_query($link, $sql_costo);
+        $res_costo = mysqli_query($link, $sql_costo);
         $contador_costo = 0;
         while ($row_costo = mysql_fetch_array($res_costo)) {
             $codigofenix = $row_costo['codigo_fenix'];
@@ -105,7 +105,7 @@ class compra_controller extends CI_Controller {
 
         //Lee la lista del proveedor 
         $sql_lista = "SELECT nombre_tabla , columna_cod_interno FROM listas WHERE proveedor_id = $proveedor";
-        $res_lista = mysql_query($link, $sql_lista);
+        $res_lista = mysqli_query($link, $sql_lista);
         while ($row_lista = mysql_fetch_array($res_lista)) {
             $nombre_tabla = $row_lista['nombre_tabla'];
             $columna_cod_interno = $row_lista['columna_cod_interno'];
@@ -115,7 +115,7 @@ class compra_controller extends CI_Controller {
                 $sql_lista_prov = "SELECT descripcion, precio_lista, marca "
                         . "FROM $nombre_tabla "
                         . "WHERE $columna_cod_interno = '$interno'";
-                $res_lista_prov = mysql_query($link, $sql_lista_prov);
+                $res_lista_prov = mysqli_query($link, $sql_lista_prov);
                 while ($row_lista_prov = mysql_fetch_array($res_lista_prov)) {
                     $descripcion_lista = $row_lista_prov['descripcion'];
                     $precio_lista = $row_lista_prov['precio_lista'];
@@ -149,7 +149,7 @@ class compra_controller extends CI_Controller {
                 . "FROM articulos "
                 . "WHERE codigo_fenix = '$codfenix' ";
 
-        $res_costo = mysql_query($link, $sql_costo);
+        $res_costo = mysqli_query($link, $sql_costo);
 
         $items = array();
         $items['descripcion'] = "";
@@ -171,7 +171,7 @@ class compra_controller extends CI_Controller {
         $sql_interno_costo = "SELECT codigo_fenix, interno_proveedor, costo, dto1,dto2,dto3,rec1,testigo, utilidad "
                 . "FROM costos_proveedor "
                 . "WHERE codigo_fenix = '$codfenix' AND proveedor_id = $proveedor";
-        $res_interno_costo = mysql_query($link, $sql_interno_costo);
+        $res_interno_costo = mysqli_query($link, $sql_interno_costo);
 
         while ($row_interno_costo = mysql_fetch_array($res_interno_costo)) {
 
@@ -203,7 +203,7 @@ class compra_controller extends CI_Controller {
             AND codigo_fenix = '$codfenix' 
             AND cantidadped <> cantidadrec
             AND sucursal = $sucursal";
-        $res_ocompra = mysql_query($link, $sql_ocompra);
+        $res_ocompra = mysqli_query($link, $sql_ocompra);
         while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
             $items['ocompra'] = $row_ocompra['ocompra'];
             $items['fecha_ocompra'] = $row_ocompra['fecha'];
@@ -243,7 +243,7 @@ class compra_controller extends CI_Controller {
                 . "AND codigo_fenix = '$codfenix' "
                 . "AND interno_proveedor = '$interno' "
                 . "AND proveedor_id = $proveedor";
-        $res_delete = mysql_query($link, $sql_delete);
+        $res_delete = mysqli_query($link, $sql_delete);
 
         $items = array();
 
@@ -282,7 +282,7 @@ class compra_controller extends CI_Controller {
                 . " '$descripcion_lista',"
                 . " '$sucursal'"
                 . " )";
-        $res = mysql_query($link, $sql);
+        $res = mysqli_query($link, $sql);
         //die($sql);
         $strMensaje = '';
         if ($res) {
@@ -292,7 +292,7 @@ class compra_controller extends CI_Controller {
                         from ocompras 
                         where proveedor_id = $proveedor 
                         and ocompra = 0";
-            $res_totales = mysql_query($link, $sql_totales);
+            $res_totales = mysqli_query($link, $sql_totales);
             $row_totales = mysql_fetch_array($res_totales);
 
             $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
@@ -332,7 +332,7 @@ class compra_controller extends CI_Controller {
         $nueva_orden = 0;
 
         $sql = "SELECT MAX(ocompra) + 1 AS nueva_orden FROM ocompras";
-        $res = mysql_query($link, $sql);
+        $res = mysqli_query($link, $sql);
         $row = mysql_fetch_array($res);
         $nueva_orden = $row['nueva_orden'];
 
@@ -341,7 +341,7 @@ class compra_controller extends CI_Controller {
             //Genera la orden de Compra
             $sql_nuevaorden = "UPDATE ocompras SET ocompra = $nueva_orden "
                     . "WHERE proveedor_id = $proveedor AND sucursal = $sucursal AND ocompra = 0";
-            $res_nuevaorden = mysql_query($link, $sql_nuevaorden);
+            $res_nuevaorden = mysqli_query($link, $sql_nuevaorden);
 
             if ($res_nuevaorden) {
                 $err = 0;
@@ -353,7 +353,7 @@ class compra_controller extends CI_Controller {
                             from ocompras 
                             where proveedor_id = $proveedor 
                             and ocompra = $nueva_orden";
-                $res_totales = mysql_query($link, $sql_totales);
+                $res_totales = mysqli_query($link, $sql_totales);
                 $row_totales = mysql_fetch_array($res_totales);
 
                 $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
@@ -407,7 +407,7 @@ class compra_controller extends CI_Controller {
         $sql_ocompra = "SELECT cantidadrec FROM"
                 . " ocompras WHER codigo_fenix = '$art'"
                 . " AND ocompra = $ocompra";
-        $res_ocompra = mysql_query($link, $sql_ocompra);
+        $res_ocompra = mysqli_query($link, $sql_ocompra);
         while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
             $cantrec_oc = $row_ocompra['cantidadrec'] * 1;
         }
@@ -427,11 +427,11 @@ class compra_controller extends CI_Controller {
                     . " WHERE ocompra = $ocompra"
                     . " AND codigo_fenix = '$art'"
                     . " AND sucursal = $sucursal";
-            $res_compras = mysql_query($link, $sql_compras);
+            $res_compras = mysqli_query($link, $sql_compras);
             if ($res_compras) {
                 //Verifica Stock
                 $sql_stk = "SELECT cantidad FROM stock WHERE articulo_fenix = '$art' AND sucursal_id = $sucursal";
-                $res_stk = mysql_query($link, $sql_stk);
+                $res_stk = mysqli_query($link, $sql_stk);
                 $cantidad_stk = 0;
                 $cantidad_stk_nueva = 0;
                 $cont_stk = 0;
@@ -446,7 +446,7 @@ class compra_controller extends CI_Controller {
                     //El ariculo esta en stock, hay que actualizar la cantidad
                     $sql_update_stk = "UPDATE stock SET cantidad = $cantidad_stk_nueva"
                             . " WHERE articulo_fenix = '$art' AND sucursal_id = $sucursal";
-                    $res_update_stk = mysql_query($link, $sql_update_stk);
+                    $res_update_stk = mysqli_query($link, $sql_update_stk);
                     if (!$res_update_stk) {
                         $strMensaje = 'Error al actualizar cantidad en stock';
                         $err = 1;
@@ -455,7 +455,7 @@ class compra_controller extends CI_Controller {
                     //El articulo se carga por primera vez
                     $sql_insert_stk = "INSERT INTO stock (articulo_fenix, cantidad, sucursal_id)"
                             . "VALUES ('$art', $cantidad_stk_nueva, $sucursal)";
-                    $res_insert_stk = mysql_query($link, $sql_insert_stk);
+                    $res_insert_stk = mysqli_query($link, $sql_insert_stk);
                     if (!$res_insert_stk) {
                         $strMensaje = 'Error al ingresar articulo al stock';
                         $err = 1;
@@ -510,7 +510,7 @@ class compra_controller extends CI_Controller {
                 . "AND codigo_fenix = '$codfenix' "
                 . "AND interno_proveedor = '$interno' "
                 . "AND proveedor_id = $proveedor";
-        $res_delete = mysql_query($link, $sql_delete);
+        $res_delete = mysqli_query($link, $sql_delete);
 
         $sql = "INSERT INTO facturas_compras "
                 . "("
@@ -544,7 +544,7 @@ class compra_controller extends CI_Controller {
                 . " '$rec1',"
                 . " '$descripcion_lista'"
                 . " )";
-        $res = mysql_query($link, $sql);
+        $res = mysqli_query($link, $sql);
 
         $strMensaje = '';
         if ($res) {
@@ -554,7 +554,7 @@ class compra_controller extends CI_Controller {
                         from facturas_compras 
                         where proveedor_id = $proveedor 
                         and ocompra = 0";
-            $res_totales = mysql_query($link, $sql_totales);
+            $res_totales = mysqli_query($link, $sql_totales);
             $row_totales = mysql_fetch_array($res_totales);
 
             $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
@@ -589,7 +589,7 @@ class compra_controller extends CI_Controller {
 
         //Datos del proveedor 
         $sql_prov = "SELECT codigo_proveedor, nombre_proveedor FROM PROVEEDORES WHERE ID = $proveedor";
-        $res_prov = mysql_query($link, $sql_prov);
+        $res_prov = mysqli_query($link, $sql_prov);
         $row_prov = mysql_fetch_array($res_prov);
         $prov_nombre = $row_prov['nombre_proveedor'];
         $codigo_proveedor = $row_prov['codigo_proveedor'];
@@ -608,7 +608,7 @@ class compra_controller extends CI_Controller {
                     from facturas_compras 
                     where proveedor_id = $proveedor 
                     and factura = '$factura'";
-        $res_totales = mysql_query($link, $sql_totales);
+        $res_totales = mysqli_query($link, $sql_totales);
         $row_totales = mysql_fetch_array($res_totales);
 
         $importe_total = number_format($row_totales['importe_total'], 2, '.', ',');
@@ -616,7 +616,7 @@ class compra_controller extends CI_Controller {
 
         //Baja los articulos de la orden de compra
         $sql_arts = "SELECT codigo_fenix, cantidad FROM facturas_compras WHERE factura = '$factura'";
-        $res_arts = mysql_query($link, $sql_arts);
+        $res_arts = mysqli_query($link, $sql_arts);
         while ($row_arts = mysql_fetch_array($res_arts)) {
 
             $art_oc = $row_arts['codigo_fenix'];
@@ -630,7 +630,7 @@ class compra_controller extends CI_Controller {
                 AND cantidadped > cantidadrec
                 AND sucursal = $sucursal
                 ORDER BY fecha DESC LIMIT 1";
-            $res_ocompra = mysql_query($link, $sql_ocompra);
+            $res_ocompra = mysqli_query($link, $sql_ocompra);
             while ($row_arts = mysql_fetch_array($res_ocompra)) {
                 $ocompra = $row_arts['ocompra'];
                 $cantidadped = $row_arts['cantidadped'];
@@ -643,7 +643,7 @@ class compra_controller extends CI_Controller {
                         . " WHERE ocompra = $ocompra"
                         . " AND codigo_fenix = '$art_oc'"
                         . " AND sucursal = $sucursal";
-                $res_compras = mysql_query($link, $sql_compras);
+                $res_compras = mysqli_query($link, $sql_compras);
                 
                     //VINCULA LA FACTURA DE COMPRA CON LA ORDEN DE COMPRA
                 
@@ -652,14 +652,14 @@ class compra_controller extends CI_Controller {
                         . " WHERE ocompra = 0"
                         . " AND codigo_fenix = '$art_oc'"
                         . " AND factura = '$factura'";
-                    $res_fac_oc = mysql_query($link, $sql_fac_oc);
+                    $res_fac_oc = mysqli_query($link, $sql_fac_oc);
                     
                     //3 - Actualiza el Stock
                     //Verifica Stock
                     $sql_stk = "SELECT cantidad FROM stock "
                             . "WHERE articulo_fenix = '$art_oc'"
                             . " AND sucursal_id = $sucursal";
-                    $res_stk = mysql_query($link, $sql_stk);
+                    $res_stk = mysqli_query($link, $sql_stk);
                     $cantidad_stk = 0;
                     $cantidad_stk_nueva = 0;
                     $cont_stk = 0;
@@ -675,7 +675,7 @@ class compra_controller extends CI_Controller {
                         $sql_update_stk = "UPDATE stock SET cantidad = $cantidad_stk_nueva"
                                 . " WHERE articulo_fenix = '$art_oc' "
                                 . "AND sucursal_id = $sucursal";
-                        $res_update_stk = mysql_query($link, $sql_update_stk);
+                        $res_update_stk = mysqli_query($link, $sql_update_stk);
                         if (!$res_update_stk) {
                             $strMensaje = 'Error al actualizar cantidad en stock';
                             $err = 1;
@@ -684,7 +684,7 @@ class compra_controller extends CI_Controller {
                         //El articulo se carga por primera vez
                         $sql_insert_stk = "INSERT INTO stock (articulo_fenix, cantidad, sucursal_id)"
                                 . "VALUES ('$art_oc', $cantidad_stk_nueva, $sucursal)";
-                        $res_insert_stk = mysql_query($link, $sql_insert_stk);
+                        $res_insert_stk = mysqli_query($link, $sql_insert_stk);
                         if (!$res_insert_stk) {
                             $strMensaje = 'Error al ingresar articulo al stock';
                             $err = 1;

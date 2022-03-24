@@ -24,7 +24,7 @@ $lines = file($filename);
 $fecha_modificacion_archivo = filemtime($filename);
 
 $sql_settings = "SELECT fecha_actualizacion FROM settings";
-$res_settings = mysql_query($link, $sql_settings);
+$res_settings = mysqli_query($link, $sql_settings);
 $row_settings = mysql_fetch_array($res_settings);
 $fecha_modificacion_base = $row_settings['fecha_actualizacion'];
 

@@ -73,7 +73,7 @@
                                         <?php
                                         //Fecha de la lista
                                         $sql = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'lista_renault'";
-                                        $res = mysql_query($link, $sql);
+                                        $res = mysqli_query($link, $sql);
                                         $row = mysql_fetch_array($res);
                                         $fecha_actualizacion = $row['fecha_actualizacion'];
                                         foreach($articulo as $campo => $valor) {
@@ -98,14 +98,14 @@
                                             //Obtiene id de Renault
                                             $sql_cod_prov = "SELECT id FROM proveedores "
                                                     . " WHERE codigo_proveedor = '051' ";
-                                            $res_cod_prov = mysql_query($link, $sql_cod_prov);
+                                            $res_cod_prov = mysqli_query($link, $sql_cod_prov);
                                             $row_cod_prov = mysql_fetch_array($res_cod_prov);
                                             $proveedor_id = $row_cod_prov['id'];
                                             
                                             //consulta la tabla de dtos del proveedor 15 (069 => TAGLE)
                                             $sql_dto = "SELECT porcentaje_dto FROM proveedor_dto_vw "
                                                     . " WHERE proveedor_id = $proveedor_id AND codigo = '$codigo_dto'";
-                                            $res_dto = mysql_query($link, $sql_dto);
+                                            $res_dto = mysqli_query($link, $sql_dto);
                                             $row_dto = mysql_fetch_array($res_dto);
                                             $porc_dto = $row_dto['porcentaje_dto'];
                                            

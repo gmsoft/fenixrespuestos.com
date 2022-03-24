@@ -21,11 +21,11 @@
             </div>
             <?php
             $query_clientes = "SELECT id, razon_social FROM clientes";
-            $result_clientes = mysql_query($link, $query_clientes);
+            $result_clientes = mysqli_query($link, $query_clientes);
 
             $query_sucursal_h = "SELECT id, nombre
                     FROM sucursales";
-            $result_sucursal_h = mysql_query($link, $query_sucursal_h);
+            $result_sucursal_h = mysqli_query($link, $query_sucursal_h);
             ?>
             <div class="span12">
                 <!-- BEGIN EXAMPLE TABLE widget-->

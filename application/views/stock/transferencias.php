@@ -22,11 +22,11 @@
             <?php
             $query_sucursal = "SELECT id, nombre
                     FROM sucursales";
-            $result_sucursal = mysql_query($link, $query_sucursal);
+            $result_sucursal = mysqli_query($link, $query_sucursal);
             
             $query_sucursal_h = "SELECT id, nombre
                     FROM sucursales";
-            $result_sucursal_h = mysql_query($link, $query_sucursal_h);
+            $result_sucursal_h = mysqli_query($link, $query_sucursal_h);
             
             ?>
             <div class="span12">

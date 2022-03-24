@@ -24,11 +24,11 @@
                     FROM listas l
                     INNER JOIN proveedores p ON p.`id` =  l.`proveedor_id`
                     WHERE proveedor_id NOT IN (1,5,7)";
-            $result_prov = mysql_query($link, $query_prov);
+            $result_prov = mysqli_query($link, $query_prov);
 
             $query_sucursal_h = "SELECT id, nombre
                     FROM sucursales";
-            $result_sucursal_h = mysql_query($link, $query_sucursal_h);
+            $result_sucursal_h = mysqli_query($link, $query_sucursal_h);
             ?>
             <div class="span12">
                 <!-- BEGIN EXAMPLE TABLE widget-->
@@ -98,7 +98,7 @@
                                     WHERE ocompra <> 0
                                     GROUP BY ocompra
                                     ORDER BY fecha desc, ocompra desc";
-                                    $res_ocompra = mysql_query($link, $sql_ocompra);
+                                    $res_ocompra = mysqli_query($link, $sql_ocompra);
                                     while ($row_ocompra = mysql_fetch_array($res_ocompra)) {
                                         $importe_total = number_format($row_ocompra['importe'], 2, '.', ',');
                                         ?>
