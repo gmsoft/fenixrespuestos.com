@@ -8,7 +8,7 @@ class lista_precio_model extends CI_Model {
     function get_articulo_by_id($id, $lista = 'lista_vw')
     {
         $this->db->select('*');
-        $this->db->where('id = "'.$id.'"');
+        $this->db->where("id = " . $id);
         $query=$this->db->get($lista);
         return $query->row_array();
     }
@@ -17,7 +17,7 @@ class lista_precio_model extends CI_Model {
     {
         $interno = str_replace('*', '%', $interno);
         $this->db->select('*');
-        $this->db->where($campo_interno . ' LIKE "%' . $interno . '%"');
+        $this->db->where($campo_interno . " LIKE '%" . $interno . "%'");
         $query = $this->db->get($lista);
         return $query->result_array();
     }
@@ -28,9 +28,8 @@ class lista_precio_model extends CI_Model {
         $codigo_oem = str_replace('-  -', '-%-', $codigo_oem);
         $codigo_oem = str_replace('  -', '%-', $codigo_oem);
         $codigo_oem = str_replace(' -', '%-', $codigo_oem);
-        //die($codigo_oem);
         $this->db->select('*');
-        $this->db->where('original LIKE "%' . $codigo_oem . '%"');
+        $this->db->where("original LIKE '%" . $codigo_oem . "%'");
         $query=$this->db->get($lista);
         return $query->result_array();
     }
@@ -39,7 +38,7 @@ class lista_precio_model extends CI_Model {
     {
         $descripcion = str_replace('*', '%', $descripcion);
         $this->db->select('*');
-        $this->db->where('descripcion LIKE "%' . $descripcion . '%"');
+        $this->db->where("descripcion LIKE '%" . $descripcion . "%'");
         $query=$this->db->get($lista);
         return $query->row_array();
     }
@@ -48,13 +47,12 @@ class lista_precio_model extends CI_Model {
     {
         $descripcion = str_replace('*', '%', $descripcion);
         $this->db->select('*');
-        $this->db->where('descripcion LIKE "%' . $descripcion . '%"');
-        if($descripcion=='')
-            $query=$this->db->get($lista,100);
+        $this->db->where("descripcion LIKE '%" . $descripcion . "%'");
+        if ($descripcion == '')
+            $query = $this->db->get($lista, 100);
         else
-            $query=$this->db->get($lista);
+            $query = $this->db->get($lista);
         return $query->result_array();
-    }    
-  	
+    }
 }
 ?>
