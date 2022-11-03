@@ -74,7 +74,7 @@
 
                                         foreach($articulo as $campo => $valor){
                                             $codigo_dto = $valor['cod_dto'];
-                                            $precio_publico = $valor['precio_publico'];
+                                            $precio_publico = isset($valor['precio_publico']) ? $valor['precio_publico'] : 0;
                                             $precio_iva = $valor['precio_iva'];
 
                                             $precio_iva = ($precio_iva * 1) / 100;
@@ -94,7 +94,7 @@
                                             $sql_dto = "select porcentaje_dto from proveedor_dto_vw where proveedor_id = 1 and codigo = '$codigo_dto'";
                                             $res_dto = mysqli_query($link, $sql_dto);
                                             $row_dto = mysqli_fetch_array($res_dto);
-                                            $porc_dto = $row_dto['porcentaje_dto'];
+                                            $porc_dto = isset($row_dto['porcentaje_dto']) ? $row_dto['porcentaje_dto'] : 0;
 
                                             //Controla si es descuento o recargo
                                             if ($porc_dto > 0 ) {
