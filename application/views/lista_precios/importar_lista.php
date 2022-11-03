@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-
+echo 'Lista seleccionada: ' . $_GET['lista'];
 if (isset($_GET['lista'])) {
     
      $registros_importados = 0;
