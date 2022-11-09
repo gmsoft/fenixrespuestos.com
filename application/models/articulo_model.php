@@ -20,7 +20,7 @@ class articulo_model extends CI_Model {
     function get_articulo_individual_by_codigo_oem($codigo_oem)
     {
         $this->db->select('*');
-        $this->db->where('codigo_oem = "' . $codigo_oem . '"');
+        $this->db->where("codigo_oem = '" . $codigo_oem . "'");
         $query=$this->db->get('articulos');
         return $query->row_array();
     }
@@ -60,7 +60,7 @@ class articulo_model extends CI_Model {
     {
         $codigo_oem = str_replace('*', '%', $codigo_oem);
         $this->db->select('*');
-        $this->db->where('codigo_oem LIKE "%' . $codigo_oem . '%"');
+        $this->db->where("codigo_oem LIKE '%" . $codigo_oem . "%'");
         $query=$this->db->get('articulos');
         return $query->result_array();
     }
@@ -69,7 +69,7 @@ class articulo_model extends CI_Model {
     {
         $descripcion = str_replace('*', '%', $descripcion);
         $this->db->select('*');
-        $this->db->where('descripcion LIKE "%' . $descripcion . '%"');
+        $this->db->where("descripcion LIKE '%" . $descripcion . "%'");
         $query=$this->db->get('articulos');
         return $query->row_array();
     }
@@ -110,10 +110,5 @@ class articulo_model extends CI_Model {
          return ($row_stock['cantidad'] * 1);
         }
     }
-    
-    
-
-    
-
 }
 ?>
