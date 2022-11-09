@@ -135,8 +135,9 @@
                                             //Verifica si tiene oferta
                                             $sql_oferta = "SELECT articulo, descripcion, precio FROM ofertas WHERE articulo = '" . $valor['original'] . "'";
                                             $res_oferta = mysqli_query($link, $sql_oferta);
+				            $row_oferta = mysqli_fetch_array($res_oferta);
                                             $nrows_oferta = mysqli_num_rows($res_oferta);
-                                            $row_oferta = mysqli_fetch_array($res_oferta);
+                                           
                                             if ($nrows_oferta > 0) {
                                                  //Fecha de la lista
                                                 $sql_fechalista = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'ofertas'";
@@ -151,14 +152,13 @@
                                                 $precio_oferta = str_replace(",", "", $precio_oferta); 
                                                 //$precio_oferta = str_replace(".", ".", $precio_oferta); 
                                                 $precio_oferta = $precio_oferta * 1;
-                                                
+                                         
 												
-												//Agrega IVA
+						//Agrega IVA
                                                 $precio_oferta = $precio_oferta * 1.21;
 												
                                                 //Agrega utilidad del 40%
-												$precio_oferta = $precio_oferta / 0.6;
-												
+						$precio_oferta = $precio_oferta / 0.6;						
                                                 
                                                 $precio_oferta = number_format($precio_oferta, 2, '.', ',');
                                             ?>
