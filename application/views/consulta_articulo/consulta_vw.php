@@ -133,12 +133,15 @@
                                             </tr>
                                         <?php
                                             //Verifica si tiene oferta
+					    /*
                                             $sql_oferta = "SELECT articulo, descripcion, precio FROM ofertas WHERE articulo = '" . $valor['original'] . "'";
                                             $res_oferta = mysqli_query($link, $sql_oferta);
 				            $row_oferta = mysqli_fetch_array($res_oferta);
                                             $nrows_oferta = mysqli_num_rows($res_oferta);
+					    */
                                            
-                                            if ($nrows_oferta > 0) {
+                                            // if ($nrows_oferta > 0) {
+					    if (1 == 2) {	
                                                  //Fecha de la lista
                                                 $sql_fechalista = "SELECT DATE_FORMAT(fecha_actualizacion,'%d/%m/%Y') AS fecha_actualizacion FROM listas WHERE nombre_tabla = 'ofertas'";
                                                 $res_fechalista = mysqli_query($link, $sql_fechalista);
